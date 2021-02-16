@@ -1,4 +1,4 @@
-# JAMMS Tool
+# SAM Tool
 
 ---
 
