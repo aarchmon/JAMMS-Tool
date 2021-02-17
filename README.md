@@ -1,7 +1,5 @@
 # SAM Tool
 
-![Financial Planning](./Images/finance.jpg)
-
 ---
 
 ## Technologies
