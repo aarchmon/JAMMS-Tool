@@ -1,0 +1,10 @@
+graph TD
+    user{Client} -.-> |provide financial information| profiler;
+    subgraph Program
+    profiler --> calculator;
+    calculator --> visualizer;
+    end
+    subgraph APIs
+    Quandl[(Quandl)] -.-> calculator;
+    Alpaca[(Alpaca)] -.-> calculator;
+    end
