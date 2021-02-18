@@ -1,10 +1,8 @@
-graph TD
-    user{Client} -.-> |provide financial information| profiler;
+graph LR
+    User[\Client/] -.-> |provides personal financial information| Profiler[[profiler]];
     subgraph Program
-    profiler --> calculator;
-    calculator --> visualizer;
+    Profiler --> Calculator[[calculator]];
+    Calculator --> Visualizer[[visualizer]];
     end
-    subgraph APIs
-    Quandl[(Quandl)] -.-> calculator;
-    Alpaca[(Alpaca)] -.-> calculator;
-    end
+    API[(API)] --> |provides up-to-date financial data| Calculator;
+    Visualizer -.-> |generates| Output[/output/];
