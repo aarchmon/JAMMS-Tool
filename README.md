@@ -1,5 +1,7 @@
 # SAM Tool
 
+![SAM Tool](./Images/main_image.jpg)
+
 ---
 
 ## Technologies
