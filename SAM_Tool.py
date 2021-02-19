@@ -3,9 +3,9 @@ from pathlib import Path
 import fire
 
 # Import profiler functions.
-from ..include.profiler import get_info
-from ..include.profiler import qualification
-from ..include.profiler import risk_profile
+from include.profiler import get_info
+from include.profiler import qualification
+from include.profiler import risk_profile
                   
 def run():
     """The main function for running the script."""
