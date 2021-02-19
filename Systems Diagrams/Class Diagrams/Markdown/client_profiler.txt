@@ -1,0 +1,15 @@
+classDiagram
+    class Client {
+        - cash
+        - assets
+        - income
+        - liquidity
+    }
+
+    class profiler {
+        
+        - qualification()
+        - risk_profile()
+    }
+
+    Client --|> profiler : provides personal financial information
