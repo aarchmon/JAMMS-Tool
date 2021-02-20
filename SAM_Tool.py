@@ -2,9 +2,6 @@ import sys
 from pathlib import Path
 import fire
 
-# Add path to include folder.
-sys.path.append("../")
-
 # Import profiler functions.
 from include.profiler import get_info
 from include.profiler import qualification
