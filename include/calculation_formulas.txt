@@ -30,7 +30,7 @@ Portfolio return = a*(return of bonds) + b*(return of stocks) + c*(return of cry
 portfolio_standard_deviation = (portfolio_variance)^1/2
 1. calculate portfolio variance = [variance(aX + bY + cZ)]...calculation is a bit complex but you can use .var()
 2. calculate portfolio standard deviation = (portfolio variance)^1/2...you can use numpy function .std()
-annualized_vol = annualized_returns.std()*np.sqrt(250)
+**annualized_vol = annualized_returns.std()*np.sqrt(250)
 
     * Conservative
     * Moderate
