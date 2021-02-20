@@ -1,10 +1,19 @@
+"""
+Profiler Module
+---------------------------------
+Profiler module incorporates methods which retrieve a client's personal financial information.
+This information will be used to etermine overall strategic asset allocation blend based on this profile. 
+"""
+
 import questionary
 
 def get_info():
-    """Prompt dialog to retrieve investor's financial information.
+    """
+    Prompt dialog to retrieve investor's financial information.
 
-    Returns:
-        Returns the investor's initial investment amount or insufficient funds
+    :param name: None
+    :param type: None
+    :rtype cash, assets, income, liquidity: float
     """
     
     print('Welcome. In order to determine your initial investment, please answer the following questions. If none, please enter 0!')
@@ -22,6 +31,18 @@ def get_info():
     return cash, assets, income, liquidity
 
 def qualification(cash, assets, income, liquidity):
+    """
+    Determine whether or not Client holds sufficient net worth to invest.
+
+    :param cash: Total cash on-hand.
+    :param assets: Net assets.
+    :param income: Annual gross income.
+    :param liquidity: Liquidity of Client. 
+    :type cash: float
+    :type assets: float
+    :type income: float
+    :type liquidity: float
+    """
     net_worth = (cash + assets + income - liquidity)
     if net_worth > 0:
         print(f"You are able to invest: {net_worth}")
@@ -31,6 +52,12 @@ def qualification(cash, assets, income, liquidity):
        
         
 def risk_profile():
+    """
+    Determine risk profile of Client.
+
+    :param None:
+    :rtype profile: str
+    """
     score = 0
     
     age = questionary.text("What is your age?").ask()
