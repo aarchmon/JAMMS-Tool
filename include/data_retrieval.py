@@ -11,9 +11,9 @@ import pandas as pd
 from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
 
-def import_stock_data(start, end, tickers, timeframe):
+def import_asset_data(start, end, tickers, timeframe):
     """
-    Import stock data via Alpaca API.
+    Import asset data via Alpaca API.
 
     :param start: Start date of stock data.
     :param end: End date of stock data.
@@ -54,3 +54,26 @@ def import_stock_data(start, end, tickers, timeframe):
 
     return stock_df
 
+def format_close_price(df, tickers):
+    """
+    Formats a Pandas DataFrame such that only closing prices of assets are displayed.
+
+    :param df: Numerical asset information.
+    :param tickers: Tickers to extract closing price from.
+    :type df: Pandas DataFrame.
+    :type tickers: List of tickers as str data type.
+    :rtype closing_prices_df: Modified Pandas DataFrame.
+    """
+
+    # Create an empty DataFrame to hold closing prices.
+    closing_prices_df = pd.DataFrame()
+
+    # For each ticker, retrieve closing prices and append to closing_prices_df.
+    for ticker in tickers:
+        closing_prices_df[ticker] = df[ticker]["close"]
+
+    # Drop the time component of row date.
+    closing_prices_df.index = closing_prices_df.index.date
+
+    # Return closing_prices_df.
+    return closing_prices_df
