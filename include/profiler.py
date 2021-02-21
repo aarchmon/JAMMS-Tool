@@ -46,7 +46,6 @@ def qualification(cash, assets, income, liquidity):
     net_worth = (cash + assets + income - liquidity)
     if net_worth > 0:
         print(f"You are able to invest: {net_worth}")
-        risk_profile()
     else:
         print(f"You do not have sufficient funds to invest")
        
