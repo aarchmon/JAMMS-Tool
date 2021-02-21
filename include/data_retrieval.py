@@ -10,6 +10,7 @@ import requests
 import pandas as pd
 from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
+import numpy as np
 
 def import_asset_data(start, end, tickers, timeframe):
     """
@@ -40,21 +41,25 @@ def import_asset_data(start, end, tickers, timeframe):
         api_version = "v2"
     )
 
+    # Create the list for the required tickers
+    tickers = ["SPY", "AGG", "BTC"]
+    
     # Format dates as ISO.
     start_date = pd.Timestamp(start, tz="America/New_York").isoformat()
     end_date = pd.Timestamp(end, tz="America/New_York").isoformat()
 
-    # Retrieve and return data frame of stock data.
-    stock_df = alpaca.get_barset(
+    # Set timeframe to one day (1D)
+    timeframe = "1D"
+    
+    # Retrieve and closing prices data frame of assets.
+    close_df = alpaca.get_barset(
         tickers,
         timeframe,
         start = start_date,
         end = end_date
     ).df
 
-    return stock_df
-
-def format_close_price(df, tickers):
+def format_close_price(close_df, tickers):
     """
     Formats a Pandas DataFrame such that only closing prices of assets are displayed.
 
@@ -67,13 +72,11 @@ def format_close_price(df, tickers):
 
     # Create an empty DataFrame to hold closing prices.
     closing_prices_df = pd.DataFrame()
-
+    
     # For each ticker, retrieve closing prices and append to closing_prices_df.
     for ticker in tickers:
-        closing_prices_df[ticker] = df[ticker]["close"]
+        closing_prices_df[ticker] = close_df[ticker]["close"]
 
     # Drop the time component of row date.
     closing_prices_df.index = closing_prices_df.index.date
 
-    # Return closing_prices_df.
-    return closing_prices_df
