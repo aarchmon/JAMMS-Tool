@@ -59,7 +59,7 @@ def import_asset_data(start, end, tickers, timeframe):
         end = end_date
     ).df
 
-def format_close_price(df, tickers):
+def format_close_price(close_df, tickers):
     """
     Formats a Pandas DataFrame such that only closing prices of assets are displayed.
 
