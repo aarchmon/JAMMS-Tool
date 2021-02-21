@@ -1,7 +1,4 @@
 # SAM Tool
-# TEST
-
-
 ![SAM Tool](./Images/main_image.jpg)
 
 ---
@@ -43,10 +40,10 @@ This is will collect financial information to categorize investor into a risk pr
 ### Determine Investor's Net Worth
 Investor's net worth is defined by sum of cash, assets, and annual income minus annual spending needs
 
-    * Cash
-    * Assets (i.e. stocks, bonds, real estate, cryptoasset)
-    * Annual Income
-    * Annual Spending Needs (ie. rent/mortgage, credit card, loan payments)
+    + Cash
+    + Assets (i.e. stocks, bonds, real estate, cryptoasset)
+    + Annual Income
+    - Annual Spending Needs (ie. rent/mortgage, credit card, loan payments)
 
 ### Determine Investor's Risk Ability
 Investor's ability to take risk is determined by their investment time horizon which is the number of years they can invest. We assume an average investor's retirement age will be 65. Investment time horizon will be determined by 65 minus age of investor.
