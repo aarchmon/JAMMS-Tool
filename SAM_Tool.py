@@ -17,6 +17,7 @@ from include.data_retrieval import format_close_price
 from include.calculations import calculate_average_annual_returns
 from include.calculations import calculate_average_annual_volatility
 from include.calculations import calculate_daily_returns
+from include.calculations import calculate_sharpe_ratio
 
 # Client information.
 cash = 0
@@ -29,8 +30,8 @@ risk_prof = ""
 # Tickers.
 timeframe = "1D"
 tickers = ["AGG", "SPY"]
-start_date = "2020-06-01"
-end_date = "2010-06-30"
+start_date = "2010-06-01"
+end_date = "2020-06-01"
                   
 def run():
     """The main function for running the script."""
@@ -48,13 +49,13 @@ def run():
     raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
     raw_data_close_df = format_close_price(raw_data_df, tickers)
 
-    # Test.
-    # daily_returns_df = calculate_daily_returns(raw_data_close_df)
-    # print("AVERAGE ANNUAL RETURNS \n")
-    # print(calculate_average_annual_returns(daily_returns_df))
+    # Retrieve average annual returns and average annual volatility.
+    daily_returns_df = calculate_daily_returns(raw_data_close_df)
+    average_annual_returns_df = calculate_average_annual_returns(daily_returns_df)
+    average_annual_volatility_df = calculate_average_annual_volatility(daily_returns_df)
 
-    # print("AVERAGE ANNUAL VOLATILITY \n")
-    # print(calculate_average_annual_volatility(daily_returns_df))
+    # Calculate Sharpe Ratios. 
+    print(calculate_sharpe_ratio(average_annual_returns_df, average_annual_volatility_df))
 
     sys.exit()
 
