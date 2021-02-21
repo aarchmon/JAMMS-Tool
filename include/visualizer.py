@@ -1,3 +1,8 @@
+"""
+Visualizer Module
+---------------------------------
+Visualizer module is responsible for outputting user-friendly 
+"""
 # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio
     MC_conservative = MCSimulation(
         conservative_portfolio_df = close_df,
