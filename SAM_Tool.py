@@ -1,11 +1,36 @@
 import sys
-from pathlib import Path
 import fire
+import pandas as pd 
+from dotenv import load_dotenv
+import alpaca_trade_api as tradeapi
 
 # Import profiler functions.
 from include.profiler import get_info
 from include.profiler import qualification
 from include.profiler import risk_profile
+
+# Import data retrieval.
+from include.data_retrieval import import_asset_data
+from include.data_retrieval import format_close_price
+
+# Import calculation functions.
+from include.calculations import calculate_average_annual_returns
+from include.calculations import calculate_average_annual_volatility
+from include.calculations import calculate_daily_returns
+
+# Client information.
+cash = 0
+assets = 0
+income = 0
+liquidity = 0
+net_worth = 0
+risk_prof = ""
+
+# Tickers.
+timeframe = "1D"
+tickers = ["AGG", "SPY"]
+start_date = "2020-06-01"
+end_date = "2010-06-30"
                   
 def run():
     """The main function for running the script."""
@@ -17,8 +42,20 @@ def run():
     net_worth = qualification(cash, assets, income, liquidity)
                   
     # Determine investor's risk profile by determining ability to take risk defined by investment time horizon (age) and willingness to risk defined by comfort level with loss
-    risk_profile()
-    
+    risk_prof = risk_profile()
+
+    # Import historical financial data and retrieve closing prices.
+    raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
+    raw_data_close_df = format_close_price(raw_data_df, tickers)
+
+    # Test.
+    # daily_returns_df = calculate_daily_returns(raw_data_close_df)
+    # print("AVERAGE ANNUAL RETURNS \n")
+    # print(calculate_average_annual_returns(daily_returns_df))
+
+    # print("AVERAGE ANNUAL VOLATILITY \n")
+    # print(calculate_average_annual_volatility(daily_returns_df))
+
     sys.exit()
 
 if __name__ == "__main__":

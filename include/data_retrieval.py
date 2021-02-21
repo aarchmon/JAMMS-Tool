@@ -27,7 +27,7 @@ def import_asset_data(start, end, tickers, timeframe):
     """
 
     # Load .env environment variables.
-    load_dotenv("API_KEYS.env")
+    load_dotenv("./Resources/API_KEYS.env")
 
     # Retrieve ALPACA_API_KEY and ALPACA_SECRET_KEY.
     alpaca_api_key = os.getenv("ALPACA_API_KEY")
