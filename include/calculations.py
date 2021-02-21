@@ -8,7 +8,8 @@ various computations for this data is defined here.
 NOTE: All functions within this module will operate under the assumption that the DataFrame instance indicates closing
         prices of assets.
 """
-                                
+# tickers = ["SPY", "AGG", "BTC"]
+# weights {}        
 conservative_weight = [0.1, 0.9, 0]
 moderately_conservative_weight = [0.1, 0.9, 0]
 moderate_weight = [0.1, 0.9, 0]

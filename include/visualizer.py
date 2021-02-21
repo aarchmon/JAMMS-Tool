@@ -1,8 +1,3 @@
-# Creating a table for visualising average annualized returns, volatility, and Sharpe Ratio of each asset (SPY, AGG, BTC)
-consolidated_table = pd.concat([avg_annual_returns_df, avg_annual_volatility_df, avg_annual_sharpe_ratio_df], axis=1) 
-consolidated_table.columns = ['Returns', 'Volatility', 'Sharpe Ratio']
-consolidated_table
-
 # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio
     MC_conservative = MCSimulation(
         conservative_portfolio_df = close_df,
