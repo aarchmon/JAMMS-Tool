@@ -15,7 +15,7 @@ This can be a useful tool for first time investors to assess their investments u
 
 ---
 ## Systems Diagram
-![Systems_Diagram]("./Systems_Diagrams/Pipelines/main_pipeline.png")
+![Systems Diagram]("./Systems_Diagrams/Pipelines/main_pipeline.png")
 
 ---
 ## Installation Guidecs
@@ -75,7 +75,7 @@ Average the score from ability and willingness to risk. Assign each score as a r
 ## Calculations
 Based on investor's profile, we will assume the following asset allocation for each profile:
 
-![Risk Profiles](./Images/risk_score.jpg)
+![Risk Profiles](./Images/risk_profile.png)
 
 
 ---
