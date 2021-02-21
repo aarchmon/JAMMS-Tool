@@ -60,7 +60,7 @@ Investor's willingness to take risk is a preference and determined by their leve
     * If investor is comfortable with losing more than 50%, assign a value of 3
 
 ### Score Questionnaire
-Average the score from ability and willingness to risk. Assign each score as a risk profile:
+Average the score from ability and willingness to take risk. Assign each score as a risk profile:
 
     * 1 = Conservative
     * 1.5 = Moderately Conservative
@@ -70,13 +70,17 @@ Average the score from ability and willingness to risk. Assign each score as a r
 
 ---
 ## Calculations
-Based on investor's profile, we will assume the following asset allocation for each profile:
+Based on investor's profile, calculate the portfolio's average annualized return, average annual volatility and Sharpe Ratio for optimal risk-adjusted return. We will assume the following asset allocation for each profile:
 
 ![Risk Profiles](./Images/risk_profile.png)
 
 
 ---
 ## Output / Visualizations
+Portfolio return, volatility, sharpe ratio
+Efficient Frontier
+Specific ticker against portfolio/benchmark
+Monte Carlo Simulation
 
 ---
 ## Contributors
