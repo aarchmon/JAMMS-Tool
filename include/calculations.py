@@ -11,10 +11,10 @@ NOTE: All functions within this module will operate under the assumption that th
 # tickers = ["SPY", "AGG", "BTC"]
 # weights {}        
 conservative_weight = [0.1, 0.9, 0]
-moderately_conservative_weight = [0.1, 0.9, 0]
-moderate_weight = [0.1, 0.9, 0]
-moderately_aggressive_weight = [0.1, 0.9, 0]
-aggressive_weight = [0.1, 0.9, 0]
+moderately_conservative_weight = [0.25, 0.7, 0.05]
+moderate_weight = [0.6, 0.3, 0.1]
+moderately_aggressive_weight = [0.75, 0.2, 0.15]
+aggressive_weight = [0.8, 0, 0.2]
 
 def calculate_daily_returns(closing_prices_df):
     """
