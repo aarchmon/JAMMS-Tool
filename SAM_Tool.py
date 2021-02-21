@@ -3,15 +3,9 @@ from pathlib import Path
 import fire
 
 # Import profiler functions.
-<<<<<<< HEAD
-from ../include/profiler import get_info
-from ../include/profiler import qualification
-from ../include/profiler import risk_profile
-=======
 from include.profiler import get_info
 from include.profiler import qualification
 from include.profiler import risk_profile
->>>>>>> origin
                   
 def run():
     """The main function for running the script."""
