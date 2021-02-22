@@ -8,12 +8,6 @@ This information will be used to etermine overall strategic asset allocation ble
 import sys
 import questionary
 
-# Client information.
-cash = 0
-assets = 0
-income = 0
-liquidity = 0
-net_worth = 0
 risk_prof = ""
 
 def get_value(client_var, question):
@@ -27,10 +21,13 @@ def get_value(client_var, question):
     """
     while True:
         try:
-            client_var = float(questionary.text(question).ask())
+            client_var = float(questionary.text(question).ask()) 
             break
         except:
             print("Please enter numerical values only. ")
+    
+    # Return client variable.
+    return client_var
 
 def get_info():
     """
@@ -40,13 +37,17 @@ def get_info():
     :param type: None
     :rtype cash, assets, income, liquidity: float
     """
+    cash = 0
+    assets = 0
+    income = 0
+    liquidity = 0
     
     print('Welcome. In order to determine your initial investment, please answer the following questions. If none, please enter 0!')
     
-    get_value(cash, "What is your cash savings?")
-    get_value(assets, "What is the value of your total investments (ie. stocks, bonds, real estate, cryptoassets)?")
-    get_value(income, "What is your total annual income? ")
-    get_value(liquidity, "What is your average annual spending needs (ie. rent/mortgage, credit card, loan payments)?")
+    cash = get_value(cash, "What is your cash savings?")
+    assets = get_value(assets, "What is the value of your total investments (ie. stocks, bonds, real estate, cryptoassets)?")
+    income = get_value(income, "What is your total annual income? ")
+    liquidity = get_value(liquidity, "What is your average annual spending needs (ie. rent/mortgage, credit card, loan payments)?")
     
     return cash, assets, income, liquidity
 
@@ -64,6 +65,7 @@ def qualification(cash, assets, income, liquidity):
     :type liquidity: float
     """
     net_worth = (cash + assets + income - liquidity)
+    print(f"Net worth: {net_worth}")
     if net_worth > 0:
         print(f"You are able to invest: {net_worth}")
     else:
