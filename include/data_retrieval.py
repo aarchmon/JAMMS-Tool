@@ -40,9 +40,6 @@ def import_asset_data(start, end, tickers, timeframe):
         alpaca_secret_key,
         api_version = "v2"
     )
-
-    # Create the list for the required tickers
-    tickers = ["SPY", "AGG", "BTC"]
     
     # Format dates as ISO.
     start_date = pd.Timestamp(start, tz="America/New_York").isoformat()
@@ -58,6 +55,54 @@ def import_asset_data(start, end, tickers, timeframe):
         start = start_date,
         end = end_date
     ).df
+
+    return close_df
+
+def import_asset_data_jupyter(start, end, tickers, timeframe):
+    """
+    Import asset data via Alpaca API (to be ran in Jupyter Notebook).
+
+    :param start: Start date of stock data.
+    :param end: End date of stock data.
+    :param tickers: List of stock tickers.
+    :param timeframe: Timeframe of analysis.
+    :type start: str as "YYYY-MM-DD" format.
+    :type end: str as "YYYY-MM-DD" format.
+    :type tickers: List of str values.
+    :type timeframe: str of timeframe (i.e., "1D").
+    :rtype stock_df: Pandas DataFrame. 
+    """
+
+    # Load .env environment variables.
+    load_dotenv("./API_KEYS.env")
+
+    # Retrieve ALPACA_API_KEY and ALPACA_SECRET_KEY.
+    alpaca_api_key = os.getenv("ALPACA_API_KEY")
+    alpaca_secret_key = os.getenv("ALPACA_SECRET_KEY")
+    
+    # Create Alpaca API object.
+    alpaca = tradeapi.REST(
+        alpaca_api_key,
+        alpaca_secret_key,
+        api_version = "v2"
+    )
+    
+    # Format dates as ISO.
+    start_date = pd.Timestamp(start, tz="America/New_York").isoformat()
+    end_date = pd.Timestamp(end, tz="America/New_York").isoformat()
+
+    # Set timeframe to one day (1D)
+    timeframe = "1D"
+    
+    # Retrieve and closing prices data frame of assets.
+    close_df = alpaca.get_barset(
+        tickers,
+        timeframe,
+        start = start_date,
+        end = end_date
+    ).df
+
+    return close_df
 
 def format_close_price(close_df, tickers):
     """
@@ -80,3 +125,5 @@ def format_close_price(close_df, tickers):
     # Drop the time component of row date.
     closing_prices_df.index = closing_prices_df.index.date
 
+    # Return closing prices.
+    return closing_prices_df

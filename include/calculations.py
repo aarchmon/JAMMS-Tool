@@ -8,13 +8,6 @@ various computations for this data is defined here.
 NOTE: All functions within this module will operate under the assumption that the DataFrame instance indicates closing
         prices of assets.
 """
-# tickers = ["SPY", "AGG", "BTC"]
-# weights {}        
-conservative_weight = [0.1, 0.9, 0]
-moderately_conservative_weight = [0.25, 0.7, 0.05]
-moderate_weight = [0.6, 0.3, 0.1]
-moderately_aggressive_weight = [0.75, 0.2, 0.15]
-aggressive_weight = [0.8, 0, 0.2]
 
 def calculate_daily_returns(closing_prices_df):
     """
@@ -27,29 +20,29 @@ def calculate_daily_returns(closing_prices_df):
     return daily_returns_df
     
 
-def calculate_average_annual_returns(avg_annual_returns_df):
+def calculate_average_annual_returns(daily_returns_df):
     """
     Calculates the annual returns on daily returns.
     Must only be ran after calculate_daily_returns() method has been called.
 
-    :param df: Daily returns.
-    :type df: Pandas DataFrame.
+    :param daily_returns_df: Daily returns.
+    :type daily_returns_df: Pandas DataFrame.
     """
     avg_annual_returns_df = (daily_returns_df.mean() * 252)
     return avg_annual_returns_df
 
-def calculate_average_annual_volatility(avg_annual_returns_df_df):
+def calculate_average_annual_volatility(daily_returns_df):
     """
     Calculates the annual volatility on daily returns. 
     Must only be ran after calculate_daily_returns() method has been called.
 
-    :param df: Daily returns.
-    :type df: Pandas DataFrame. 
+    :param daily_returns_df: Daily returns.
+    :type daily_returns_df: Pandas DataFrame. 
     """
-    avg_annual_volatility_df = (avg_annual_returns_df.std() * np.sqrt(250)
+    avg_annual_volatility_df = daily_returns_df.std() * 252**(1/2)
     return avg_annual_volatility_df
 
-def calculate_average_sharpe_ratio(avg_annual_returns_df, avg_annual_volatility_df):
+def calculate_sharpe_ratio(avg_annual_returns_df, avg_annual_volatility_df):
     """
     Calculates the Sharpe Ratio of a given portfolio.
     Must only be ran after calculate_daily_returns(), calculate_average_annual_returns()
@@ -63,24 +56,14 @@ def calculate_average_sharpe_ratio(avg_annual_returns_df, avg_annual_volatility_
     avg_annual_sharpe_ratio_df = avg_annual_returns_df / avg_annual_volatility_df
     return avg_annual_sharpe_ratio_df
 
+def calculate_portfolio_return(average_annual_returns_df, weight):
+    """
+    Calculate the portfolio return per a given weight based off of client risk profile.
 
-# Creating expected return of portfolio for each risk porfile                          
-conservative_portfolio_return = (avg_annual_returns_df * conservative_weight).sum()
-moderately_conservative_portfolio_return = (avg_annual_returns_df * moderately_conservative_weight).sum()
-moderate_portfolio_return = (avg_annual_returns_df * moderate_weight).sum()
-moderately_aggressive_portfolio_return = (avg_annual_returns_df * moderately_aggressive_weight).sum()
-aggressive_portfolio_return = (avg_annual_returns_df * aggressive_weight).sum()
-                                
-# Creating volatility of portfolio for each risk porfile  
-conservative_portfolio_vol =
-moderately_conservative_portfolio_vol =
-moderate_portfolio_vol = 
-moderately_aggressive_portfolio_vol = 
-aggressive_portfolio_vol =                     
-                                
-# Creating Sharpe Ratio of portfolio for each risk porfile  
-conservative_portfolio_sharpe =
-moderately_conservative_portfolio_sharpe =
-moderate_portfolio_sharpe = 
-moderately_aggressive_portfolio_sharpe = 
-aggressive_portfolio_sharpe =   
+    :param average_annual_returns_df: Average annual returns of asset data.
+    :param weight: Portfolio weight per client risk profile.
+    :type average_annual_returns_df: Pandas DataFrame.
+    :type weight: float list
+    """
+    portfolio_return_df = average_annual_returns_df.mul(weight).sum()
+    return portfolio_return_df

@@ -1,8 +1,51 @@
 """
 Visualizer Module
 ---------------------------------
-Visualizer module is responsible for outputting user-friendly 
+Visualizer module is responsible for outputting user-friendly visual aides. 
 """
+
+def create_MC_object(df, weight, num_sims, num_trade_days):
+    """
+    Create a Monte-Carlo Simulation object. Return will be used in generating visualizations.
+
+    :param df: Portfolio data.
+    :param weight: Weight per risk profile.
+    :param num_sims: Number of simulations.
+    :param num_trade_days: Number of trading days. 
+    :type df: Pandas DataFrame.
+    :type weight: float list
+    :type num_sims: int
+    :type num_trade_days: int
+    """
+
+    # Create MC Simulation object.
+    MC_Simulation = MCSimulation(
+        portfolio_data = df,
+        weights = weight,
+        num_simulation = num_sims,
+        num_trading_days = num_trade_days
+    )
+
+    return MC_Simulation
+
+def run_MC_Simulation(MC_Simulation_object):
+    """
+    With a Monte-Carlo Simulation object, calculate the cumulative returns. 
+
+    :param MC_Simulation_object: Monte-Carlo simulation object. 
+    :type MC_Simulation_object: MC object.
+    """
+    MC_Simulation_object.calc_cumulative_return()
+
+def retrieve_MC_summary(MC_Simulation_object):
+    """
+    With a Monte-Carlo Simulation object, retrieve summary statistics of results.
+
+    :param MC_Simulation_object: Monte-Carlo simulation object.
+    :type MC_Simulation_object: MC object.
+    """
+    MC_Simulation_object.summarize_cumulative_return()
+
 # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio
     MC_conservative = MCSimulation(
         conservative_portfolio_df = close_df,
