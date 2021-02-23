@@ -32,7 +32,7 @@ from include.visualizer import retrieve_MC_summary
 
 # Tickers.
 timeframe = "1D"
-tickers = ["AGG", "SPY", "XWEB"]
+tickers = ["SPY", "AGG", "XWEB"]
 start_date = "2010-06-01"
 end_date = "2020-06-01"
 
