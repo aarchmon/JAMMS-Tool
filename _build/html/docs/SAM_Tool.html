@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAM_Tool module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="profiler module" href="profiler.html" />
+    <link rel="prev" title="Welcome to SAM Tool’s documentation!" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="profiler.html" title="profiler module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to SAM Tool’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SAM_Tool module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-SAM_Tool">
+<span id="sam-tool-module"></span><h1>SAM_Tool module<a class="headerlink" href="#module-SAM_Tool" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="SAM_Tool.run">
+<code class="sig-prename descclassname"><span class="pre">SAM_Tool.</span></code><code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SAM_Tool.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function for running the script.</p>
+</dd></dl>
+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">fire</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">alpaca_trade_api</span> <span class="k">as</span> <span class="nn">tradeapi</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">from</span> <span class="nn">pytz</span> <span class="kn">import</span> <span class="n">timezone</span>
+
+<span class="c1"># Import profiler functions.</span>
+<span class="kn">from</span> <span class="nn">include.profiler</span> <span class="kn">import</span> <span class="n">get_info</span>
+<span class="kn">from</span> <span class="nn">include.profiler</span> <span class="kn">import</span> <span class="n">qualification</span>
+<span class="kn">from</span> <span class="nn">include.profiler</span> <span class="kn">import</span> <span class="n">risk_profile</span>
+
+<span class="c1"># Import data retrieval.</span>
+<span class="kn">from</span> <span class="nn">include.data_retrieval</span> <span class="kn">import</span> <span class="n">import_asset_data</span>
+<span class="kn">from</span> <span class="nn">include.data_retrieval</span> <span class="kn">import</span> <span class="n">format_close_price</span>
+
+<span class="c1"># Import calculation functions.</span>
+<span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_average_annual_returns</span>
+<span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_average_annual_volatility</span>
+<span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_daily_returns</span>
+<span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_sharpe_ratio</span>
+<span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_portfolio_return</span>
+
+<span class="c1"># Import Visualizer functions.</span>
+<span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">create_MC_object</span>
+<span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">run_MC_Simulation</span>
+<span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">retrieve_MC_summary</span>
+
+<span class="c1"># Tickers.</span>
+<span class="n">timeframe</span> <span class="o">=</span> <span class="s2">&quot;1D&quot;</span>
+<span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AGG&quot;</span><span class="p">,</span> <span class="s2">&quot;SPY&quot;</span><span class="p">]</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2010-06-01&quot;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2020-06-01&quot;</span>
+
+<span class="c1"># Weights per client risk profile.  </span>
+<span class="n">risk_profile_weights</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span> <span class="s2">&quot;moderately conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> 
+                        <span class="s2">&quot;moderate&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="s2">&quot;moderately aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                        <span class="s2">&quot;aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+                  
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The main function for running the script.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Get investor&#39;s information</span>
+    <span class="n">cash</span><span class="p">,</span> <span class="n">assets</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">liquidity</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">()</span>
+
+    <span class="c1"># Determine qualifying investable amount</span>
+    <span class="n">net_worth</span> <span class="o">=</span> <span class="n">qualification</span><span class="p">(</span><span class="n">cash</span><span class="p">,</span> <span class="n">assets</span><span class="p">,</span> <span class="n">income</span><span class="p">,</span> <span class="n">liquidity</span><span class="p">)</span>
+                  
+    <span class="c1"># Determine investor&#39;s risk profile by determining ability to take risk defined by investment time horizon (age) and willingness to risk defined by comfort level with loss</span>
+    <span class="n">risk_prof</span> <span class="o">=</span> <span class="n">risk_profile</span><span class="p">()</span>
+
+    <span class="c1"># Import historical financial data and retrieve closing prices.</span>
+    <span class="n">raw_data_df</span> <span class="o">=</span> <span class="n">import_asset_data</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">tickers</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">)</span>
+    <span class="n">raw_data_close_df</span> <span class="o">=</span> <span class="n">format_close_price</span><span class="p">(</span><span class="n">raw_data_df</span><span class="p">,</span> <span class="n">tickers</span><span class="p">)</span>
+
+    <span class="c1"># Retrieve average annual returns and average annual volatility.</span>
+    <span class="n">daily_returns_df</span> <span class="o">=</span> <span class="n">calculate_daily_returns</span><span class="p">(</span><span class="n">raw_data_close_df</span><span class="p">)</span>
+    <span class="n">average_annual_returns_df</span> <span class="o">=</span> <span class="n">calculate_average_annual_returns</span><span class="p">(</span><span class="n">daily_returns_df</span><span class="p">)</span>
+    <span class="n">average_annual_volatility_df</span> <span class="o">=</span> <span class="n">calculate_average_annual_volatility</span><span class="p">(</span><span class="n">daily_returns_df</span><span class="p">)</span>
+
+    <span class="c1"># Calculate Sharpe Ratios. </span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SHARPE RATIOS&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">calculate_sharpe_ratio</span><span class="p">(</span><span class="n">average_annual_returns_df</span><span class="p">,</span> <span class="n">average_annual_volatility_df</span><span class="p">))</span>
+
+    <span class="c1"># Calculate portfolio returns per risk profile.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO RETURNS PER RISK PROFILE&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">calculate_portfolio_return</span><span class="p">(</span><span class="n">average_annual_returns_df</span><span class="p">,</span> <span class="n">risk_profile_weights</span><span class="p">[</span><span class="n">risk_prof</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1"># Exit out of program.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">Fire</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Welcome to SAM Tool’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="profiler.html"
+                        title="next chapter">profiler module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/SAM_Tool.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="profiler.html" title="profiler module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to SAM Tool’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SAM_Tool module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

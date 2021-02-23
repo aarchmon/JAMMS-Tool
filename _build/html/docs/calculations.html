@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>calculations module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MCForcastTools module" href="MCForcastTools.html" />
+    <link rel="prev" title="profiler module" href="profiler.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MCForcastTools.html" title="MCForcastTools module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="profiler.html" title="profiler module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">calculations module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-calculations">
+<span id="calculations-module"></span><h1>calculations module<a class="headerlink" href="#module-calculations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Calculations Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Financial calculations module which acts upon a Pandas DataFrame object containing information about assets. A set of
+various computations for this data is defined here.</p>
+<dl class="simple">
+<dt>NOTE: All functions within this module will operate under the assumption that the DataFrame instance indicates closing</dt><dd><p>prices of assets.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt id="calculations.calculate_average_annual_returns">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_average_annual_returns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">daily_returns_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_average_annual_returns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the annual returns on daily returns.
+Must only be ran after calculate_daily_returns() method has been called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>daily_returns_df</strong> (<em>Pandas DataFrame.</em>) – Daily returns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_average_annual_volatility">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_average_annual_volatility</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">daily_returns_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_average_annual_volatility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the annual volatility on daily returns.
+Must only be ran after calculate_daily_returns() method has been called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>daily_returns_df</strong> (<em>Pandas DataFrame.</em>) – Daily returns.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_daily_returns">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_daily_returns</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">closing_prices_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_daily_returns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the daily returns on closing prices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>Pandas DataFrame.</em>) – Closing prices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_portfolio_return">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_portfolio_return</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">average_annual_returns_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_portfolio_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the portfolio return per a given weight based off of client risk profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>average_annual_returns_df</strong> (<em>Pandas DataFrame.</em>) – Average annual returns of asset data.</p></li>
+<li><p><strong>weight</strong> (<em>float list</em>) – Portfolio weight per client risk profile.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_sharpe_ratio">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_sharpe_ratio</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">avg_annual_returns_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_annual_volatility_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_sharpe_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Sharpe Ratio of a given portfolio.
+Must only be ran after calculate_daily_returns(), calculate_average_annual_returns()
+calculate_average_annual_volatility() methods have been called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>avg_annual_returns_df</strong> (<em>Pandas DataFrame.</em>) – Average annual returns.</p></li>
+<li><p><strong>avg_annual_volatility_df</strong> (<em>Pandas DataFrame.</em>) – Average annual volatility.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">calculations module</a><ul>
+<li><a class="reference internal" href="#id1">Calculations Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="profiler.html"
+                        title="previous chapter">profiler module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="MCForcastTools.html"
+                        title="next chapter">MCForcastTools module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/calculations.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="MCForcastTools.html" title="MCForcastTools module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="profiler.html" title="profiler module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">calculations module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

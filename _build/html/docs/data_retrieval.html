@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data_retrieval module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="efficient_frontier module" href="efficient_frontier.html" />
+    <link rel="prev" title="visualizer module" href="visualizer.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="efficient_frontier.html" title="efficient_frontier module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="visualizer.html" title="visualizer module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">data_retrieval module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-data_retrieval">
+<span id="data-retrieval-module"></span><h1>data_retrieval module<a class="headerlink" href="#module-data_retrieval" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Data Retrieval Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Data retrieval module which imports up-to-date financial data via Alpaca API. This information will be used to carry out
+a series of financial calculations.</p>
+<dl class="py function">
+<dt id="data_retrieval.format_close_price">
+<code class="sig-prename descclassname"><span class="pre">data_retrieval.</span></code><code class="sig-name descname"><span class="pre">format_close_price</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">close_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tickers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_retrieval.format_close_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a Pandas DataFrame such that only closing prices of assets are displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame.</em>) – Numerical asset information.</p></li>
+<li><p><strong>tickers</strong> (<em>List of tickers as str data type.</em>) – Tickers to extract closing price from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rtype closing_prices_df</dt>
+<dd class="field-even"><p>Modified Pandas DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_retrieval.import_asset_data">
+<code class="sig-prename descclassname"><span class="pre">data_retrieval.</span></code><code class="sig-name descname"><span class="pre">import_asset_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tickers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_retrieval.import_asset_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import asset data via Alpaca API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>str as &quot;YYYY-MM-DD&quot; format.</em>) – Start date of stock data.</p></li>
+<li><p><strong>end</strong> (<em>str as &quot;YYYY-MM-DD&quot; format.</em>) – End date of stock data.</p></li>
+<li><p><strong>tickers</strong> (<em>List of str values.</em>) – List of stock tickers.</p></li>
+<li><p><strong>timeframe</strong> (<em>str of timeframe</em><em> (</em><em>i.e.</em><em>, </em><em>&quot;1D&quot;</em><em>)</em><em></em>) – Timeframe of analysis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rtype stock_df</dt>
+<dd class="field-even"><p>Pandas DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_retrieval.import_asset_data_jupyter">
+<code class="sig-prename descclassname"><span class="pre">data_retrieval.</span></code><code class="sig-name descname"><span class="pre">import_asset_data_jupyter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tickers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_retrieval.import_asset_data_jupyter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import asset data via Alpaca API (to be ran in Jupyter Notebook).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>str as &quot;YYYY-MM-DD&quot; format.</em>) – Start date of stock data.</p></li>
+<li><p><strong>end</strong> (<em>str as &quot;YYYY-MM-DD&quot; format.</em>) – End date of stock data.</p></li>
+<li><p><strong>tickers</strong> (<em>List of str values.</em>) – List of stock tickers.</p></li>
+<li><p><strong>timeframe</strong> (<em>str of timeframe</em><em> (</em><em>i.e.</em><em>, </em><em>&quot;1D&quot;</em><em>)</em><em></em>) – Timeframe of analysis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Rtype stock_df</dt>
+<dd class="field-even"><p>Pandas DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Data Retrieval Module</span>
+<span class="sd">-------------------------------</span>
+<span class="sd">Data retrieval module which imports up-to-date financial data via Alpaca API. This information will be used to carry out</span>
+<span class="sd">a series of financial calculations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span> <span class="nn">alpaca_trade_api</span> <span class="k">as</span> <span class="nn">tradeapi</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">import_asset_data</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">tickers</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import asset data via Alpaca API.</span>
+
+<span class="sd">    :param start: Start date of stock data.</span>
+<span class="sd">    :param end: End date of stock data.</span>
+<span class="sd">    :param tickers: List of stock tickers.</span>
+<span class="sd">    :param timeframe: Timeframe of analysis.</span>
+<span class="sd">    :type start: str as &quot;YYYY-MM-DD&quot; format.</span>
+<span class="sd">    :type end: str as &quot;YYYY-MM-DD&quot; format.</span>
+<span class="sd">    :type tickers: List of str values.</span>
+<span class="sd">    :type timeframe: str of timeframe (i.e., &quot;1D&quot;).</span>
+<span class="sd">    :rtype stock_df: Pandas DataFrame. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Load .env environment variables.</span>
+    <span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;./include/API_KEYS.env&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Retrieve ALPACA_API_KEY and ALPACA_SECRET_KEY.</span>
+    <span class="n">alpaca_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ALPACA_API_KEY&quot;</span><span class="p">)</span>
+    <span class="n">alpaca_secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ALPACA_SECRET_KEY&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create Alpaca API object.</span>
+    <span class="n">alpaca</span> <span class="o">=</span> <span class="n">tradeapi</span><span class="o">.</span><span class="n">REST</span><span class="p">(</span>
+        <span class="n">alpaca_api_key</span><span class="p">,</span>
+        <span class="n">alpaca_secret_key</span><span class="p">,</span>
+        <span class="n">api_version</span> <span class="o">=</span> <span class="s2">&quot;v2&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Format dates as ISO.</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;America/New_York&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;America/New_York&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+    <span class="c1"># Set timeframe to one day (1D)</span>
+    <span class="n">timeframe</span> <span class="o">=</span> <span class="s2">&quot;1D&quot;</span>
+    
+    <span class="c1"># Retrieve and closing prices data frame of assets.</span>
+    <span class="n">close_df</span> <span class="o">=</span> <span class="n">alpaca</span><span class="o">.</span><span class="n">get_barset</span><span class="p">(</span>
+        <span class="n">tickers</span><span class="p">,</span>
+        <span class="n">timeframe</span><span class="p">,</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">start_date</span><span class="p">,</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">end_date</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">close_df</span>
+
+<span class="k">def</span> <span class="nf">import_asset_data_jupyter</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">tickers</span><span class="p">,</span> <span class="n">timeframe</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import asset data via Alpaca API (to be ran in Jupyter Notebook).</span>
+
+<span class="sd">    :param start: Start date of stock data.</span>
+<span class="sd">    :param end: End date of stock data.</span>
+<span class="sd">    :param tickers: List of stock tickers.</span>
+<span class="sd">    :param timeframe: Timeframe of analysis.</span>
+<span class="sd">    :type start: str as &quot;YYYY-MM-DD&quot; format.</span>
+<span class="sd">    :type end: str as &quot;YYYY-MM-DD&quot; format.</span>
+<span class="sd">    :type tickers: List of str values.</span>
+<span class="sd">    :type timeframe: str of timeframe (i.e., &quot;1D&quot;).</span>
+<span class="sd">    :rtype stock_df: Pandas DataFrame. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Load .env environment variables.</span>
+    <span class="n">load_dotenv</span><span class="p">(</span><span class="s2">&quot;./API_KEYS.env&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Retrieve ALPACA_API_KEY and ALPACA_SECRET_KEY.</span>
+    <span class="n">alpaca_api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ALPACA_API_KEY&quot;</span><span class="p">)</span>
+    <span class="n">alpaca_secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;ALPACA_SECRET_KEY&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Create Alpaca API object.</span>
+    <span class="n">alpaca</span> <span class="o">=</span> <span class="n">tradeapi</span><span class="o">.</span><span class="n">REST</span><span class="p">(</span>
+        <span class="n">alpaca_api_key</span><span class="p">,</span>
+        <span class="n">alpaca_secret_key</span><span class="p">,</span>
+        <span class="n">api_version</span> <span class="o">=</span> <span class="s2">&quot;v2&quot;</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Format dates as ISO.</span>
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;America/New_York&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;America/New_York&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+    <span class="c1"># Set timeframe to one day (1D)</span>
+    <span class="n">timeframe</span> <span class="o">=</span> <span class="s2">&quot;1D&quot;</span>
+    
+    <span class="c1"># Retrieve and closing prices data frame of assets.</span>
+    <span class="n">close_df</span> <span class="o">=</span> <span class="n">alpaca</span><span class="o">.</span><span class="n">get_barset</span><span class="p">(</span>
+        <span class="n">tickers</span><span class="p">,</span>
+        <span class="n">timeframe</span><span class="p">,</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">start_date</span><span class="p">,</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">end_date</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">close_df</span>
+
+<span class="k">def</span> <span class="nf">format_close_price</span><span class="p">(</span><span class="n">close_df</span><span class="p">,</span> <span class="n">tickers</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Formats a Pandas DataFrame such that only closing prices of assets are displayed.</span>
+
+<span class="sd">    :param df: Numerical asset information.</span>
+<span class="sd">    :param tickers: Tickers to extract closing price from.</span>
+<span class="sd">    :type df: Pandas DataFrame.</span>
+<span class="sd">    :type tickers: List of tickers as str data type.</span>
+<span class="sd">    :rtype closing_prices_df: Modified Pandas DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Create an empty DataFrame to hold closing prices.</span>
+    <span class="n">closing_prices_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="c1"># For each ticker, retrieve closing prices and append to closing_prices_df.</span>
+    <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">:</span>
+        <span class="n">closing_prices_df</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">[</span><span class="n">ticker</span><span class="p">][</span><span class="s2">&quot;close&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Drop the time component of row date.</span>
+    <span class="n">closing_prices_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">closing_prices_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">date</span>
+
+    <span class="c1"># Return closing prices.</span>
+    <span class="k">return</span> <span class="n">closing_prices_df</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">data_retrieval module</a><ul>
+<li><a class="reference internal" href="#id1">Data Retrieval Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="visualizer.html"
+                        title="previous chapter">visualizer module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="efficient_frontier.html"
+                        title="next chapter">efficient_frontier module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/data_retrieval.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="efficient_frontier.html" title="efficient_frontier module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="visualizer.html" title="visualizer module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">data_retrieval module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

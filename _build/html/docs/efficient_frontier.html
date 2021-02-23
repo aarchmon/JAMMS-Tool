@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>efficient_frontier module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="data_retrieval module" href="data_retrieval.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_retrieval.html" title="data_retrieval module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">efficient_frontier module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="efficient-frontier-module">
+<h1>efficient_frontier module<a class="headerlink" href="#efficient-frontier-module" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a table for visualising average annualized returns, volatility, and Sharpe Ratio of each asset (SPY, AGG, BTC)</span>
+<span class="n">consolidated_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">avg_annual_returns_df</span><span class="p">,</span> <span class="n">avg_annual_volatility_df</span><span class="p">,</span> <span class="n">avg_annual_sharpe_ratio_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+<span class="n">consolidated_table</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Returns&#39;</span><span class="p">,</span> <span class="s1">&#39;Volatility&#39;</span><span class="p">,</span> <span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">]</span>
+<span class="n">consolidated_table</span>
+
+<span class="c1"># Define an empty array for portfolio returns</span>
+<span class="n">p_ret</span> <span class="o">=</span> <span class="p">[]</span> 
+
+<span class="c1"># Define an empty array for portfolio volatility</span>
+<span class="n">p_vol</span> <span class="o">=</span> <span class="p">[]</span> 
+
+<span class="c1"># Define an empty array for asset weights</span>
+<span class="n">p_weights</span> <span class="o">=</span> <span class="p">[]</span> 
+
+<span class="n">num_assets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">num_portfolios</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="k">for</span> <span class="n">portfolio</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_portfolios</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">num_assets</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">p_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+ 
+ <span class="c1">#break</span>
+
+<span class="c1"># Returns are the product of individual expected returns of asset and its weights</span>
+    <span class="n">returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">ind_er</span><span class="p">)</span>
+    <span class="n">p_ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+    
+<span class="c1"># Portfolio Variance</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">cov_matrix</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="c1"># Daily standard deviation</span>
+    <span class="n">ann_sd</span> <span class="o">=</span> <span class="n">sd</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span> <span class="c1"># Annual standard deviation = volatility</span>
+    <span class="n">p_vol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ann_sd</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Returns&#39;</span><span class="p">:</span><span class="n">p_ret</span><span class="p">,</span> <span class="s1">&#39;Volatility&#39;</span><span class="p">:</span><span class="n">p_vol</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
+    <span class="c1">#print(counter, symbol)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">symbol</span><span class="o">+</span><span class="s1">&#39; weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">p_weights</span><span class="p">]</span>
+
+    <span class="n">portfolios</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    
+<span class="c1"># Dataframe of the 10000 portfolios created</span>
+    <span class="n">portfolios</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+    
+<span class="c1"># Plot efficient frontier</span>
+<span class="n">portfolios</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Volatility&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Returns&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="data_retrieval.html"
+                        title="previous chapter">data_retrieval module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/efficient_frontier.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_retrieval.html" title="data_retrieval module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">efficient_frontier module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>
