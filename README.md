@@ -23,15 +23,24 @@ This can be a useful tool for first time investors to assess their investments u
     * SciPy
     * Monte Carlo
     * Alpaca API
-    * Quandl
-    * SQL Alchemy
     * OS
     * Questionary
     * Fire
-    * Doxygen
-    * Kivy
-    * Seaborn
-    * Scikit
+
+# Import libraries and dependencies
+
+import pandas as pd
+import numpy as np
+import os
+from dotenv import load_dotenv
+import alpaca_trade_api as tradeapi
+import datetime as dt
+import pytz
+from pytz import timezone
+import sys
+import fire
+from pathlib import Path
+
 
 ---
 ## User Profile
@@ -77,8 +86,7 @@ Based on investor's profile, calculate the portfolio's average annualized return
 
 ---
 ## Output / Visualizations
-Portfolio return, volatility, sharpe ratio
-Efficient Frontier
+Based on each user's input and risk profile, display Portfolio return, volatility, sharpe ratio in a table along with optimal portfolio return, volatility, sharpe ration based on efficient frontier
 Specific ticker against portfolio/benchmark
 Monte Carlo Simulation
 
