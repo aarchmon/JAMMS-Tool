@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>visualizer module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="data_retrieval module" href="data_retrieval.html" />
+    <link rel="prev" title="MCForcastTools module" href="MCForcastTools.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_retrieval.html" title="data_retrieval module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MCForcastTools.html" title="MCForcastTools module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">visualizer module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-visualizer">
+<span id="visualizer-module"></span><h1>visualizer module<a class="headerlink" href="#module-visualizer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Visualizer Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Visualizer module is responsible for outputting user-friendly visual aides.</p>
+<dl class="py function">
+<dt id="visualizer.create_MC_object">
+<code class="sig-prename descclassname"><span class="pre">visualizer.</span></code><code class="sig-name descname"><span class="pre">create_MC_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trade_days</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizer.create_MC_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Monte-Carlo Simulation object. Return will be used in generating visualizations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>Pandas DataFrame.</em>) – Portfolio data.</p></li>
+<li><p><strong>weight</strong> (<em>float list</em>) – Weight per risk profile.</p></li>
+<li><p><strong>num_sims</strong> (<em>int</em>) – Number of simulations.</p></li>
+<li><p><strong>num_trade_days</strong> (<em>int</em>) – Number of trading days.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="visualizer.retrieve_MC_summary">
+<code class="sig-prename descclassname"><span class="pre">visualizer.</span></code><code class="sig-name descname"><span class="pre">retrieve_MC_summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MC_Simulation_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizer.retrieve_MC_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>With a Monte-Carlo Simulation object, retrieve summary statistics of results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>MC_Simulation_object</strong> (<em>MC object.</em>) – Monte-Carlo simulation object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="visualizer.run_MC_Simulation">
+<code class="sig-prename descclassname"><span class="pre">visualizer.</span></code><code class="sig-name descname"><span class="pre">run_MC_Simulation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MC_Simulation_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizer.run_MC_Simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>With a Monte-Carlo Simulation object, calculate the cumulative returns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>MC_Simulation_object</strong> (<em>MC object.</em>) – Monte-Carlo simulation object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Visualizer Module</span>
+<span class="sd">---------------------------------</span>
+<span class="sd">Visualizer module is responsible for outputting user-friendly visual aides. </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">create_MC_object</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">num_sims</span><span class="p">,</span> <span class="n">num_trade_days</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a Monte-Carlo Simulation object. Return will be used in generating visualizations.</span>
+
+<span class="sd">    :param df: Portfolio data.</span>
+<span class="sd">    :param weight: Weight per risk profile.</span>
+<span class="sd">    :param num_sims: Number of simulations.</span>
+<span class="sd">    :param num_trade_days: Number of trading days. </span>
+<span class="sd">    :type df: Pandas DataFrame.</span>
+<span class="sd">    :type weight: float list</span>
+<span class="sd">    :type num_sims: int</span>
+<span class="sd">    :type num_trade_days: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Create MC Simulation object.</span>
+    <span class="n">MC_Simulation</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">portfolio_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">weight</span><span class="p">,</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="n">num_sims</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="n">num_trade_days</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">MC_Simulation</span>
+
+<span class="k">def</span> <span class="nf">run_MC_Simulation</span><span class="p">(</span><span class="n">MC_Simulation_object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    With a Monte-Carlo Simulation object, calculate the cumulative returns. </span>
+
+<span class="sd">    :param MC_Simulation_object: Monte-Carlo simulation object. </span>
+<span class="sd">    :type MC_Simulation_object: MC object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MC_Simulation_object</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">retrieve_MC_summary</span><span class="p">(</span><span class="n">MC_Simulation_object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    With a Monte-Carlo Simulation object, retrieve summary statistics of results.</span>
+
+<span class="sd">    :param MC_Simulation_object: Monte-Carlo simulation object.</span>
+<span class="sd">    :type MC_Simulation_object: MC object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MC_Simulation_object</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+
+<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio</span>
+    <span class="n">MC_conservative</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">conservative_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+    <span class="n">MC_conservative</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+    
+    <span class="c1"># Save the summary statistics information in a variable for conservative portfolio</span>
+    <span class="n">conservative_table</span> <span class="o">=</span> <span class="n">MC_conservative</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+
+<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately conservative portfolio</span>
+    <span class="n">MC_moderately_conservative</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">moderately_conservative_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">],</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+    <span class="n">MC_moderately_conservative</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+    
+    <span class="c1"># Save the summary statistics information in a variable for conservative portfolio</span>
+    <span class="n">moderately_conservative_table</span> <span class="o">=</span> <span class="n">MC_moderately_conservative</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+
+<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderate portfolio</span>
+    <span class="n">MC_moderate</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">moderate_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+    <span class="n">MC_moderate</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+
+    <span class="c1"># Save the summary statistics information in a variable for moderate portfolio</span>
+    <span class="n">moderate_table</span> <span class="o">=</span> <span class="n">MC_moderate</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+    
+<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately aggressive portfolio</span>
+    <span class="n">MC_moderately_aggressive</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">moderately_aggressive_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">],</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+    <span class="n">MC_moderately_aggressive</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+    
+    <span class="c1"># Save the summary statistics information in a variable for moderately aggressive portfolio</span>
+    <span class="n">moderately_aggressive_table</span> <span class="o">=</span> <span class="n">MC_moderately_aggressive</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+    
+<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of aggressive portfolio</span>
+    <span class="n">MC_aggressive</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
+        <span class="n">aggressive_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+    <span class="n">MC_aggressive</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+    
+    <span class="c1"># Save the summary statistics information in a variable for aggressive portfolio</span>
+    <span class="n">aggressive_table</span> <span class="o">=</span> <span class="n">MC_aggressive</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">visualizer module</a><ul>
+<li><a class="reference internal" href="#id1">Visualizer Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MCForcastTools.html"
+                        title="previous chapter">MCForcastTools module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data_retrieval.html"
+                        title="next chapter">data_retrieval module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/visualizer.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="data_retrieval.html" title="data_retrieval module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MCForcastTools.html" title="MCForcastTools module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">visualizer module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>

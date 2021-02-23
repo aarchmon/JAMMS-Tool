@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCForcastTools module &#8212; SAM Tool  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="visualizer module" href="visualizer.html" />
+    <link rel="prev" title="calculations module" href="calculations.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="visualizer.html" title="visualizer module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="calculations.html" title="calculations module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MCForcastTools module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-MCForcastTools">
+<span id="mcforcasttools-module"></span><h1>MCForcastTools module<a class="headerlink" href="#module-MCForcastTools" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="MCForcastTools.MCSimulation">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">MCForcastTools.</span></code><code class="sig-name descname"><span class="pre">MCSimulation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_simulation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trading_days</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">252</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#MCForcastTools.MCSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Python class for runnning Monte Carlo simulation on portfolio price data.</p>
+<p>…</p>
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.portfolio_data">
+<code class="sig-name descname"><span class="pre">portfolio_data</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.portfolio_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>portfolio dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.weights">
+<code class="sig-name descname"><span class="pre">weights</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>portfolio investment breakdown</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list(float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.nSim">
+<code class="sig-name descname"><span class="pre">nSim</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.nSim" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of samples in simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.nTrading">
+<code class="sig-name descname"><span class="pre">nTrading</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.nTrading" title="Permalink to this definition">¶</a></dt>
+<dd><p>number of trading days to simulate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.simulated_return">
+<code class="sig-name descname"><span class="pre">simulated_return</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.simulated_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulated data from Monte Carlo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="MCForcastTools.MCSimulation.confidence_interval">
+<code class="sig-name descname"><span class="pre">confidence_interval</span></code><a class="headerlink" href="#MCForcastTools.MCSimulation.confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>the 95% confidence intervals for simulated final cumulative returns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="MCForcastTools.MCSimulation.calc_cumulative_return">
+<code class="sig-name descname"><span class="pre">calc_cumulative_return</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MCForcastTools.MCSimulation.calc_cumulative_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the cumulative return of a stock over time using a Monte Carlo simulation (Brownian motion with drift).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="MCForcastTools.MCSimulation.plot_distribution">
+<code class="sig-name descname"><span class="pre">plot_distribution</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MCForcastTools.MCSimulation.plot_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualizes the distribution of cumulative returns simulated using calc_cumulative_return method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="MCForcastTools.MCSimulation.plot_simulation">
+<code class="sig-name descname"><span class="pre">plot_simulation</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MCForcastTools.MCSimulation.plot_simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualizes the simulated stock trajectories using calc_cumulative_return method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="MCForcastTools.MCSimulation.summarize_cumulative_return">
+<code class="sig-name descname"><span class="pre">summarize_cumulative_return</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MCForcastTools.MCSimulation.summarize_cumulative_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate final summary statistics for Monte Carlo simulated stock data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import libraries and dependencies</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">alpaca_trade_api</span> <span class="k">as</span> <span class="nn">tradeapi</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+<span class="k">class</span> <span class="nc">MCSimulation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Python class for runnning Monte Carlo simulation on portfolio price data. </span>
+<span class="sd">    </span>
+<span class="sd">    ...</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    portfolio_data : pandas.DataFrame</span>
+<span class="sd">        portfolio dataframe</span>
+<span class="sd">    weights: list(float)</span>
+<span class="sd">        portfolio investment breakdown</span>
+<span class="sd">    nSim: int</span>
+<span class="sd">        number of samples in simulation</span>
+<span class="sd">    nTrading: int</span>
+<span class="sd">        number of trading days to simulate</span>
+<span class="sd">    simulated_return : pandas.DataFrame</span>
+<span class="sd">        Simulated data from Monte Carlo</span>
+<span class="sd">    confidence_interval : pandas.Series</span>
+<span class="sd">        the 95% confidence intervals for simulated final cumulative returns</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">portfolio_data</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">num_simulation</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">num_trading_days</span><span class="o">=</span><span class="mi">252</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs all the necessary attributes for the MCSimulation object.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        portfolio_data: pandas.DataFrame</span>
+<span class="sd">            DataFrame containing stock price information from Alpaca API</span>
+<span class="sd">        weights: list(float)</span>
+<span class="sd">            A list fractions representing percentage of total investment per stock. DEFAULT: Equal distribution</span>
+<span class="sd">        num_simulation: int</span>
+<span class="sd">            Number of simulation samples. DEFAULT: 1000 simulation samples</span>
+<span class="sd">        num_trading_days: int</span>
+<span class="sd">            Number of trading days to simulate. DEFAULT: 252 days (1 year of business days)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Check to make sure that all attributes are set</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">portfolio_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;portfolio_data must be a Pandas DataFrame&quot;</span><span class="p">)</span>
+            
+        <span class="c1"># Set weights if empty, otherwise make sure sum of weights equals one.</span>
+        <span class="k">if</span> <span class="n">weights</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">num_stocks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">portfolio_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">/</span><span class="n">num_stocks</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num_stocks</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">99</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;Sum of portfolio weights must equal one.&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate daily return if not within dataframe</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;daily_return&quot;</span> <span class="ow">in</span> <span class="n">portfolio_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+            <span class="n">close_df</span> <span class="o">=</span> <span class="n">portfolio_data</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+            <span class="n">tickers</span> <span class="o">=</span> <span class="n">portfolio_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+            <span class="n">column_names</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="s2">&quot;daily_return&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">]</span>
+            <span class="n">close_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="n">portfolio_data</span> <span class="o">=</span> <span class="n">portfolio_data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">close_df</span><span class="p">,</span><span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">tickers</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>    
+        
+        <span class="c1"># Set class attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">portfolio_data</span> <span class="o">=</span> <span class="n">portfolio_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nSim</span> <span class="o">=</span> <span class="n">num_simulation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nTrading</span> <span class="o">=</span> <span class="n">num_trading_days</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        
+    <span class="k">def</span> <span class="nf">calc_cumulative_return</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the cumulative return of a stock over time using a Monte Carlo simulation (Brownian motion with drift).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Get closing prices of each stock</span>
+        <span class="n">last_prices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">portfolio_data</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="c1"># Calculate the mean and standard deviation of daily returns for each stock</span>
+        <span class="n">daily_returns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">portfolio_data</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;daily_return&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mean_returns</span> <span class="o">=</span> <span class="n">daily_returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">std_returns</span> <span class="o">=</span> <span class="n">daily_returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        
+        <span class="c1"># Initialize empty Dataframe to hold simulated prices</span>
+        <span class="n">portfolio_cumulative_returns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        
+        <span class="c1"># Run the simulation of projecting stock prices &#39;nSim&#39; number of times</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nSim</span><span class="p">):</span>
+        
+            <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running Monte Carlo simulation number </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        
+            <span class="c1"># Create a list of lists to contain the simulated values for each stock</span>
+            <span class="n">simvals</span> <span class="o">=</span> <span class="p">[[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">last_prices</span><span class="p">]</span>
+    
+            <span class="c1"># For each stock in our data:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">last_prices</span><span class="p">)):</span>
+
+                <span class="c1"># Simulate the returns for each trading day</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nTrading</span><span class="p">):</span>
+        
+                    <span class="c1"># Calculate the simulated price using the last price within the list</span>
+                    <span class="n">simvals</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">simvals</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mean_returns</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">std_returns</span><span class="p">[</span><span class="n">s</span><span class="p">])))</span>
+    
+            <span class="c1"># Calculate the daily returns of simulated prices</span>
+            <span class="n">sim_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">simvals</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+    
+            <span class="c1"># Use the `dot` function with the weights to multiply weights with each column&#39;s simulated daily returns</span>
+            <span class="n">sim_df</span> <span class="o">=</span> <span class="n">sim_df</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span>
+    
+            <span class="c1"># Calculate the normalized, cumulative return series</span>
+            <span class="n">portfolio_cumulative_returns</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sim_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+        
+        <span class="c1"># Set attribute to use in plotting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span> <span class="o">=</span> <span class="n">portfolio_cumulative_returns</span>
+        
+        <span class="c1"># Calculate 95% confidence intervals for final cumulative returns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confidence_interval</span> <span class="o">=</span> <span class="n">portfolio_cumulative_returns</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="n">portfolio_cumulative_returns</span>
+    
+    <span class="k">def</span> <span class="nf">plot_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualizes the simulated stock trajectories using calc_cumulative_return method.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        
+        <span class="c1"># Check to make sure that simulation has run previously. </span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+            
+        <span class="c1"># Use Pandas plot function to plot the return data</span>
+        <span class="n">plot_title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nSim</span><span class="si">}</span><span class="s2"> Simulations of Cumulative Portfolio Return Trajectories Over the Next </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nTrading</span><span class="si">}</span><span class="s2"> Trading Days.&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="n">plot_title</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">plot_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Visualizes the distribution of cumulative returns simulated using calc_cumulative_return method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Check to make sure that simulation has run previously. </span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+        
+        <span class="c1"># Use the `plot` function to create a probability distribution histogram of simulated ending prices</span>
+        <span class="c1"># with markings for a 95% confidence interval</span>
+        <span class="n">plot_title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Distribution of Final Cumuluative Returns Across All </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nSim</span><span class="si">}</span><span class="s2"> Simulations&quot;</span>
+        <span class="n">plt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="n">plot_title</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confidence_interval</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confidence_interval</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">plt</span>
+    
+    <span class="k">def</span> <span class="nf">summarize_cumulative_return</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate final summary statistics for Monte Carlo simulated stock data.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Check to make sure that simulation has run previously. </span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+            
+        <span class="n">metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulated_return</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+        <span class="n">ci_series</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence_interval</span>
+        <span class="n">ci_series</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;95% CI Lower&quot;</span><span class="p">,</span><span class="s2">&quot;95% CI Upper&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_series</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="calculations.html"
+                        title="previous chapter">calculations module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="visualizer.html"
+                        title="next chapter">visualizer module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/docs/MCForcastTools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="visualizer.html" title="visualizer module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="calculations.html" title="calculations module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SAM Tool  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MCForcastTools module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Sarah Kang, Might Lee, Aaron Montano.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
+    </div>
+  </body>
+</html>
