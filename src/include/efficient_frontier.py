@@ -1,47 +1,83 @@
-# Creating a table for visualising average annualized returns, volatility, and Sharpe Ratio of each asset (SPY, AGG, BTC)
-consolidated_table = pd.concat([avg_annual_returns_df, avg_annual_volatility_df, avg_annual_sharpe_ratio_df], axis=1) 
-consolidated_table.columns = ['Returns', 'Volatility', 'Sharpe Ratio']
-consolidated_table
+# Import required modules.
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Define an empty array for portfolio returns
-p_ret = [] 
+def generate_random_portfolios(num_portfolios, num_weights, daily_returns_df):
+    """
+    Generate a set of randomized portfolios and their average annualized returns and average annualized volatilities.
 
-# Define an empty array for portfolio volatility
-p_vol = [] 
+    :param num_portfolios: Number of portfolio samples.
+    :param num_weights: Number of weights per portfolio.
+    :param daily_returns_df: Pandas DataFrame() containing all daily returns.
+    :type num_portfolios: int
+    :type num_weights: int
+    :type daily_returns_df: Pandas DataFrame().
+    """
 
-# Define an empty array for asset weights
-p_weights = [] 
+    RF = 0
+    portfolio_returns = []
+    portfolio_risk = []
+    sharpe_ratio_port = []
+    portfolio_weights = []
 
-num_assets = len(df.columns)
-num_portfolios = 10000
+    for portfolio_sample_i in range(0, num_portfolios):
 
-for portfolio in range(num_portfolios):
-    weights = np.random.random(num_assets)
-    weights = weights/np.sum(weights)
-    p_weights.append(weights)
- 
- #break
+        # Generate a random sample of weights given num_weights.
+        weights = np.random.random_sample(num_weights)
 
-# Returns are the product of individual expected returns of asset and its weights
-    returns = np.dot(weights, ind_er)
-    p_ret.append(returns)
+        # Ensure that the sum of our weights is equal to 1.
+        weights = weights / np.sum(weights)
+
+        # Calculate the annualized return for this portfolio sample and append to portfolio_returns list.
+        annualized_return = np.sum((daily_returns_df.mean() * weights) * 252)
+        portfolio_returns.append(annualized_return)
+
+        # Calculate volatility of portfolio sample and append to portfolio_risk list.
+        annualized_covariance = (daily_returns_df.cov()) * 252
+        annualized_variance = np.dot(weights.T,np.dot(annualized_covariance, weights))
+        annualized_volatility = np.sqrt(annualized_variance)
+        portfolio_risk.append(annualized_volatility)
+
+        # Calculate Sharpe Ratio of portfolio sample and append to sharpe_ratio_port list.
+        sharpe_ratio = ((annualized_return - RF) / annualized_volatility)
+        sharpe_ratio_port.append(sharpe_ratio)
+
+        # Append portfolio weight to portfolio_weights list.
+        portfolio_weights.append(weights)
     
-# Portfolio Variance
-    var = cov_matrix.mul(weights, axis=0).mul(weights, axis=1).sum().sum()
-    sd = np.sqrt(var) # Daily standard deviation
-    ann_sd = sd*np.sqrt(250) # Annual standard deviation = volatility
-    p_vol.append(ann_sd)
+    # Return portfolio_returns, portfolio_risk, sharpe_ratio_port and portfolio_weights.
+    return np.array(portfolio_returns), np.array(portfolio_risk), np.array(sharpe_ratio_port), np.array(portfolio_weights)
 
-    data = {'Returns':p_ret, 'Volatility':p_vol}
+def determine_optimal_portfolio(portfolio_metrics):
+    """
+    Given a sample of N portfolios, determine the optimal portfolio and its respective weights.
+    """
 
-for counter, symbol in enumerate(df.columns.tolist()):
-    #print(counter, symbol)
-    data[symbol+' weight'] = [w[counter] for w in p_weights]
+    # Create a DataFrame of randomized portfolio metrics.
+    portfolios_df = pd.DataFrame(portfolio_metrics)
+    portfolios_df = portfolios_df.T
+    portfolios_df.columns = ["portfolio_returns", "portfolio_risk", "sharpe_ratio", "portfolio_weights"]
 
-    portfolios  = pd.DataFrame(data)
+    # Convert from object to float the first three columns.
+    for col in ["portfolio_returns", "portfolio_risk",  "sharpe_ratio"]:
+        portfolios_df[col] = portfolios_df[col].astype(float)
     
-# Dataframe of the 10000 portfolios created
-    portfolios.head() 
+    # Determine the portfolio with the greatest Sharpe Ratio.
+    greatest_sharpe_ratio_portfolio = portfolios_df.iloc[portfolios_df["sharpe_ratio"].idxmax()]
     
-# Plot efficient frontier
-portfolios.plot.scatter(x='Volatility', y='Returns', marker='o', s=10, alpha=0.3, grid=True, figsize=[10,10])
+    # Determine the portfolio with the least risk.
+    min_risk = portfolios_df.iloc[portfolios_df["portfolio_risk"].idxmin()]
+
+    # Print out results.
+    print("PORTFOLIO WITH GREATEST SHARPE RATIO")
+    print(f"Returns = {greatest_sharpe_ratio_portfolio[0]: .2f}")
+    print(f"Sharpe Ratio = {greatest_sharpe_ratio_portfolio[1]: .2f}")
+    print(f"Weighting = [{greatest_sharpe_ratio_portfolio[3][0]: .2f} (SPY), {greatest_sharpe_ratio_portfolio[3][1]: .2f} (AGG), {greatest_sharpe_ratio_portfolio[3][2]:.2f} (XWEB)]")
+    print()
+
+    print("PORTFOLIO WITH LEAST RISK")
+    print(f"Returns = {min_risk[0]: .2f}")
+    print(f"Sharpe Ratio = {min_risk[1]: .2f}")
+    print(f"Weighting = [{min_risk[3][0]: .2f} (SPY), {min_risk[3][1]: .2f} (AGG), {min_risk[3][2]:.2f} (XWEB)]")
+    print()

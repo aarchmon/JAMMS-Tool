@@ -76,21 +76,28 @@
 <span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_sharpe_ratio</span>
 <span class="kn">from</span> <span class="nn">include.calculations</span> <span class="kn">import</span> <span class="n">calculate_portfolio_return</span>
 
+<span class="c1"># Import Monte-Carlo Simulation tools.</span>
+<span class="kn">from</span> <span class="nn">include.MCForcastTools</span> <span class="kn">import</span> <span class="n">MCSimulation</span>
+
 <span class="c1"># Import Visualizer functions.</span>
 <span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">create_MC_object</span>
 <span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">run_MC_Simulation</span>
 <span class="kn">from</span> <span class="nn">include.visualizer</span> <span class="kn">import</span> <span class="n">retrieve_MC_summary</span>
 
+<span class="c1"># Import Efficient Frontier functions.</span>
+<span class="kn">from</span> <span class="nn">include.efficient_frontier</span> <span class="kn">import</span> <span class="n">generate_random_portfolios</span>
+<span class="kn">from</span> <span class="nn">include.efficient_frontier</span> <span class="kn">import</span> <span class="n">determine_optimal_portfolio</span>
+
 <span class="c1"># Tickers.</span>
 <span class="n">timeframe</span> <span class="o">=</span> <span class="s2">&quot;1D&quot;</span>
-<span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AGG&quot;</span><span class="p">,</span> <span class="s2">&quot;SPY&quot;</span><span class="p">]</span>
+<span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SPY&quot;</span><span class="p">,</span> <span class="s2">&quot;AGG&quot;</span><span class="p">,</span> <span class="s2">&quot;XWEB&quot;</span><span class="p">]</span>
 <span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2010-06-01&quot;</span>
 <span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2020-06-01&quot;</span>
 
 <span class="c1"># Weights per client risk profile.  </span>
-<span class="n">risk_profile_weights</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span> <span class="s2">&quot;moderately conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> 
-                        <span class="s2">&quot;moderate&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="s2">&quot;moderately aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
-                        <span class="s2">&quot;aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+<span class="n">risk_profile_weights</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s2">&quot;moderately conservative&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> 
+                        <span class="s2">&quot;moderate&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="s2">&quot;moderately aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+                        <span class="s2">&quot;aggressive&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]}</span>
                   
 <span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;The main function for running the script.&quot;&quot;&quot;</span>
@@ -116,10 +123,23 @@
     <span class="c1"># Calculate Sharpe Ratios. </span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SHARPE RATIOS&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">calculate_sharpe_ratio</span><span class="p">(</span><span class="n">average_annual_returns_df</span><span class="p">,</span> <span class="n">average_annual_volatility_df</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
 
     <span class="c1"># Calculate portfolio returns per risk profile.</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO RETURNS PER RISK PROFILE&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">calculate_portfolio_return</span><span class="p">(</span><span class="n">average_annual_returns_df</span><span class="p">,</span> <span class="n">risk_profile_weights</span><span class="p">[</span><span class="n">risk_prof</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">calculate_portfolio_return</span><span class="p">(</span><span class="n">average_annual_returns_df</span><span class="p">,</span> <span class="n">risk_profile_weights</span><span class="p">[</span><span class="n">risk_prof</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="c1"># Run Monte-Carlo Simulation.</span>
+    <span class="n">MC_Sim</span> <span class="o">=</span> <span class="n">create_MC_object</span><span class="p">(</span><span class="n">raw_data_df</span><span class="p">,</span> <span class="n">risk_profile_weights</span><span class="p">[</span><span class="n">risk_prof</span><span class="p">],</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">run_MC_Simulation</span><span class="p">(</span><span class="n">MC_Sim</span><span class="p">)</span>
+    <span class="n">retrieve_MC_summary</span><span class="p">(</span><span class="n">MC_Sim</span><span class="p">)</span>
+    <span class="n">MC_Sim</span><span class="o">.</span><span class="n">plot_simulation</span><span class="p">()</span>
+
+    <span class="c1"># Determine optimized portfolios.</span>
+    <span class="n">portfolio_returns</span><span class="p">,</span> <span class="n">portfolio_risk</span><span class="p">,</span> <span class="n">sharpe_ratio_port</span><span class="p">,</span> <span class="n">portfolio_weights</span> <span class="o">=</span> <span class="n">generate_random_portfolios</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">daily_returns_df</span><span class="p">)</span>
+    <span class="n">portfolio_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">portfolio_returns</span><span class="p">,</span> <span class="n">portfolio_risk</span><span class="p">,</span> <span class="n">sharpe_ratio_port</span><span class="p">,</span> <span class="n">portfolio_weights</span><span class="p">]</span>
+    <span class="n">determine_optimal_portfolio</span><span class="p">(</span><span class="n">portfolio_metrics</span><span class="p">)</span>
 
     <span class="c1"># Exit out of program.</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>

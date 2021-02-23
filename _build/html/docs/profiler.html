@@ -200,35 +200,35 @@ This information will be used to etermine overall strategic asset allocation ble
     <span class="n">time_horizon</span> <span class="o">=</span> <span class="p">(</span><span class="mi">65</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">age</span><span class="p">))</span>
     
     <span class="k">if</span> <span class="n">time_horizon</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=+</span> <span class="mi">1</span>   
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>   
     <span class="k">elif</span> <span class="p">(</span><span class="mi">5</span> <span class="o">&lt;</span> <span class="n">time_horizon</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">time_horizon</span> <span class="o">&lt;=</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">score</span> <span class="o">=+</span> <span class="mi">2</span>    
-    <span class="k">elif</span> <span class="n">time_horizon</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=+</span> <span class="mi">3</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">2</span>    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">3</span>
             
     <span class="n">willingness</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Which best defines your comfort level of loss?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Less than 10</span><span class="si">% lo</span><span class="s2">ss&quot;</span><span class="p">,</span> <span class="s2">&quot;10</span><span class="si">%-50%</span><span class="s2"> loss&quot;</span><span class="p">,</span> <span class="s2">&quot;Greater than 50</span><span class="si">% lo</span><span class="s2">ss&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">willingness</span> <span class="o">==</span> <span class="s2">&quot;Less than 10</span><span class="si">% lo</span><span class="s2">ss&quot;</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=+</span><span class="mi">1</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">elif</span> <span class="n">willingness</span> <span class="o">==</span> <span class="s2">&quot;10</span><span class="si">%-50%</span><span class="s2"> loss&quot;</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=+</span><span class="mi">2</span>
-    <span class="k">elif</span> <span class="n">willingness</span> <span class="o">==</span> <span class="s2">&quot;Greater than 50</span><span class="si">% lo</span><span class="s2">ss&quot;</span><span class="p">:</span>
-        <span class="n">score</span> <span class="o">=+</span><span class="mi">3</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">3</span>
 
     <span class="n">avg_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="k">if</span> <span class="n">avg_score</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Conservative&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Conservative </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;conservative&quot;</span>
     <span class="k">elif</span> <span class="n">avg_score</span> <span class="o">==</span> <span class="mf">1.5</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderately Conservative&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderately Conservative </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;moderately conservative&quot;</span>
     <span class="k">elif</span> <span class="n">avg_score</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderate&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderate </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;moderate&quot;</span>
     <span class="k">elif</span> <span class="n">avg_score</span> <span class="o">==</span> <span class="mf">2.5</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderately Aggressive&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Moderately Aggressive </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;moderately aggressive&quot;</span>
-    <span class="k">elif</span> <span class="n">avg_score</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Aggressive&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Your Risk Profile is: Aggressive </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;aggressive&quot;</span>
 </pre></div>
 </div>
