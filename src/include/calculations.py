@@ -67,3 +67,32 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
     """
     portfolio_return_df = average_annual_returns_df.mul(weight).sum()
     return portfolio_return_df
+
+def calculate_portfolio_volatility(daily_returns_df, risk_prof):
+    """
+    Calculate the volatility of the portfolio.
+    Must only be ran after calculate_daily_returns() and risk_profile() methods have been called.
+    
+    :param daily_returns_df: Daily returns.
+    :param risk_prof: client risk profile.
+    :type daily_returns_df: Pandas DataFrame.
+    :type risk_prof: string
+    """
+    weights = np.array(risk_profile_weights[risk_prof])
+    portfolio_covariance = daily_returns_df.cov() * 252
+    portfolio_variance = np.dot(weights.T, np.dot(portfolio_covariance, weights))
+    portfolio_volatility = np.sqrt(portfolio_variance)
+    return portfolio_volatility
+
+def calculate_portfolio_sharpe_ratio(portfolio_return_df, portfolio_volatility):
+    """
+    Calculate the sharpe ratio of the portfolio.
+    Must only be ran after calculate_portfolio_return() and calculate_portfolio_volatility().
+    
+    :param portfolio_return_df: Average annual returns of the portfolio.
+    :param portfolio_volatility: Portfolio volatility
+    :type portfolio_return_df: Pandas DataFrame.
+    :type portfolio_volatility: float
+    """
+    portfolio_sharpe_ratio= portfolio_return_df / portfolio_volatility
+    return portfolio_sharpe_ratio
