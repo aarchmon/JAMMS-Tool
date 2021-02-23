@@ -40,55 +40,112 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="efficient-frontier-module">
-<h1>efficient_frontier module<a class="headerlink" href="#efficient-frontier-module" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a table for visualising average annualized returns, volatility, and Sharpe Ratio of each asset (SPY, AGG, BTC)</span>
-<span class="n">consolidated_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">avg_annual_returns_df</span><span class="p">,</span> <span class="n">avg_annual_volatility_df</span><span class="p">,</span> <span class="n">avg_annual_sharpe_ratio_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
-<span class="n">consolidated_table</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Returns&#39;</span><span class="p">,</span> <span class="s1">&#39;Volatility&#39;</span><span class="p">,</span> <span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">]</span>
-<span class="n">consolidated_table</span>
+  <div class="section" id="module-efficient_frontier">
+<span id="efficient-frontier-module"></span><h1>efficient_frontier module<a class="headerlink" href="#module-efficient_frontier" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="efficient_frontier.determine_optimal_portfolio">
+<code class="sig-prename descclassname"><span class="pre">efficient_frontier.</span></code><code class="sig-name descname"><span class="pre">determine_optimal_portfolio</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_metrics</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#efficient_frontier.determine_optimal_portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sample of N portfolios, determine the optimal portfolio and its respective weights.</p>
+</dd></dl>
 
-<span class="c1"># Define an empty array for portfolio returns</span>
-<span class="n">p_ret</span> <span class="o">=</span> <span class="p">[]</span> 
+<dl class="py function">
+<dt id="efficient_frontier.generate_random_portfolios">
+<code class="sig-prename descclassname"><span class="pre">efficient_frontier.</span></code><code class="sig-name descname"><span class="pre">generate_random_portfolios</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_portfolios</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daily_returns_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#efficient_frontier.generate_random_portfolios" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a set of randomized portfolios and their average annualized returns and average annualized volatilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_portfolios</strong> (<em>int</em>) – Number of portfolio samples.</p></li>
+<li><p><strong>num_weights</strong> (<em>int</em>) – Number of weights per portfolio.</p></li>
+<li><p><strong>daily_returns_df</strong> (<em>Pandas DataFrame</em><em>(</em><em>)</em><em></em>) – Pandas DataFrame() containing all daily returns.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="c1"># Define an empty array for portfolio volatility</span>
-<span class="n">p_vol</span> <span class="o">=</span> <span class="p">[]</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required modules.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># Define an empty array for asset weights</span>
-<span class="n">p_weights</span> <span class="o">=</span> <span class="p">[]</span> 
+<span class="k">def</span> <span class="nf">generate_random_portfolios</span><span class="p">(</span><span class="n">num_portfolios</span><span class="p">,</span> <span class="n">num_weights</span><span class="p">,</span> <span class="n">daily_returns_df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a set of randomized portfolios and their average annualized returns and average annualized volatilities.</span>
 
-<span class="n">num_assets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">num_portfolios</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="sd">    :param num_portfolios: Number of portfolio samples.</span>
+<span class="sd">    :param num_weights: Number of weights per portfolio.</span>
+<span class="sd">    :param daily_returns_df: Pandas DataFrame() containing all daily returns.</span>
+<span class="sd">    :type num_portfolios: int</span>
+<span class="sd">    :type num_weights: int</span>
+<span class="sd">    :type daily_returns_df: Pandas DataFrame().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="k">for</span> <span class="n">portfolio</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_portfolios</span><span class="p">):</span>
-    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">num_assets</span><span class="p">)</span>
-    <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
-    <span class="n">p_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
- 
- <span class="c1">#break</span>
+    <span class="n">RF</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">portfolio_returns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">portfolio_risk</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sharpe_ratio_port</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">portfolio_weights</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="c1"># Returns are the product of individual expected returns of asset and its weights</span>
-    <span class="n">returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">ind_er</span><span class="p">)</span>
-    <span class="n">p_ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">portfolio_sample_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_portfolios</span><span class="p">):</span>
+
+        <span class="c1"># Generate a random sample of weights given num_weights.</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">num_weights</span><span class="p">)</span>
+
+        <span class="c1"># Ensure that the sum of our weights is equal to 1.</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+        <span class="c1"># Calculate the annualized return for this portfolio sample and append to portfolio_returns list.</span>
+        <span class="n">annualized_return</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">daily_returns_df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">*</span> <span class="mi">252</span><span class="p">)</span>
+        <span class="n">portfolio_returns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">annualized_return</span><span class="p">)</span>
+
+        <span class="c1"># Calculate volatility of portfolio sample and append to portfolio_risk list.</span>
+        <span class="n">annualized_covariance</span> <span class="o">=</span> <span class="p">(</span><span class="n">daily_returns_df</span><span class="o">.</span><span class="n">cov</span><span class="p">())</span> <span class="o">*</span> <span class="mi">252</span>
+        <span class="n">annualized_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">annualized_covariance</span><span class="p">,</span> <span class="n">weights</span><span class="p">))</span>
+        <span class="n">annualized_volatility</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">annualized_variance</span><span class="p">)</span>
+        <span class="n">portfolio_risk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">annualized_volatility</span><span class="p">)</span>
+
+        <span class="c1"># Calculate Sharpe Ratio of portfolio sample and append to sharpe_ratio_port list.</span>
+        <span class="n">sharpe_ratio</span> <span class="o">=</span> <span class="p">((</span><span class="n">annualized_return</span> <span class="o">-</span> <span class="n">RF</span><span class="p">)</span> <span class="o">/</span> <span class="n">annualized_volatility</span><span class="p">)</span>
+        <span class="n">sharpe_ratio_port</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sharpe_ratio</span><span class="p">)</span>
+
+        <span class="c1"># Append portfolio weight to portfolio_weights list.</span>
+        <span class="n">portfolio_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
     
-<span class="c1"># Portfolio Variance</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="n">cov_matrix</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="c1"># Daily standard deviation</span>
-    <span class="n">ann_sd</span> <span class="o">=</span> <span class="n">sd</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span> <span class="c1"># Annual standard deviation = volatility</span>
-    <span class="n">p_vol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ann_sd</span><span class="p">)</span>
+    <span class="c1"># Return portfolio_returns, portfolio_risk, sharpe_ratio_port and portfolio_weights.</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">portfolio_returns</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">portfolio_risk</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sharpe_ratio_port</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">portfolio_weights</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Returns&#39;</span><span class="p">:</span><span class="n">p_ret</span><span class="p">,</span> <span class="s1">&#39;Volatility&#39;</span><span class="p">:</span><span class="n">p_vol</span><span class="p">}</span>
+<span class="k">def</span> <span class="nf">determine_optimal_portfolio</span><span class="p">(</span><span class="n">portfolio_metrics</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a sample of N portfolios, determine the optimal portfolio and its respective weights.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
-    <span class="c1">#print(counter, symbol)</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">symbol</span><span class="o">+</span><span class="s1">&#39; weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">p_weights</span><span class="p">]</span>
+    <span class="c1"># Create a DataFrame of randomized portfolio metrics.</span>
+    <span class="n">portfolios_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">portfolio_metrics</span><span class="p">)</span>
+    <span class="n">portfolios_df</span> <span class="o">=</span> <span class="n">portfolios_df</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">portfolios_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;portfolio_returns&quot;</span><span class="p">,</span> <span class="s2">&quot;portfolio_risk&quot;</span><span class="p">,</span> <span class="s2">&quot;sharpe_ratio&quot;</span><span class="p">,</span> <span class="s2">&quot;portfolio_weights&quot;</span><span class="p">]</span>
 
-    <span class="n">portfolios</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># Convert from object to float the first three columns.</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;portfolio_returns&quot;</span><span class="p">,</span> <span class="s2">&quot;portfolio_risk&quot;</span><span class="p">,</span>  <span class="s2">&quot;sharpe_ratio&quot;</span><span class="p">]:</span>
+        <span class="n">portfolios_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">portfolios_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
     
-<span class="c1"># Dataframe of the 10000 portfolios created</span>
-    <span class="n">portfolios</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+    <span class="c1"># Determine the portfolio with the greatest Sharpe Ratio.</span>
+    <span class="n">greatest_sharpe_ratio_portfolio</span> <span class="o">=</span> <span class="n">portfolios_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">portfolios_df</span><span class="p">[</span><span class="s2">&quot;sharpe_ratio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span>
     
-<span class="c1"># Plot efficient frontier</span>
-<span class="n">portfolios</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Volatility&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Returns&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+    <span class="c1"># Determine the portfolio with the least risk.</span>
+    <span class="n">min_risk</span> <span class="o">=</span> <span class="n">portfolios_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">portfolios_df</span><span class="p">[</span><span class="s2">&quot;portfolio_risk&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+
+    <span class="c1"># Print out results.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO WITH GREATEST SHARPE RATIO&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe Ratio = </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (XWEB)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO WITH LEAST RISK&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe Ratio = </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (XWEB)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

@@ -94,6 +94,8 @@
 <span class="sd">Visualizer module is responsible for outputting user-friendly visual aides. </span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">include.MCForcastTools</span> <span class="kn">import</span> <span class="n">MCSimulation</span>
+
 <span class="k">def</span> <span class="nf">create_MC_object</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">num_sims</span><span class="p">,</span> <span class="n">num_trade_days</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Monte-Carlo Simulation object. Return will be used in generating visualizations.</span>
@@ -136,75 +138,75 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">MC_Simulation_object</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
 
-<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio</span>
-    <span class="n">MC_conservative</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
-        <span class="n">conservative_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
-    <span class="p">)</span>
+<span class="c1"># # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of conservative portfolio</span>
+<span class="c1">#     MC_conservative = MCSimulation(</span>
+<span class="c1">#         conservative_portfolio_df = close_df,</span>
+<span class="c1">#         weights = [.1,.9,0],</span>
+<span class="c1">#         num_simulation = 1000,</span>
+<span class="c1">#         num_trading_days = 252*10</span>
+<span class="c1">#     )</span>
     
-    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
-    <span class="n">MC_conservative</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+<span class="c1">#     MC_conservative.calc_cumulative_return()</span>
     
-    <span class="c1"># Save the summary statistics information in a variable for conservative portfolio</span>
-    <span class="n">conservative_table</span> <span class="o">=</span> <span class="n">MC_conservative</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Save the summary statistics information in a variable for conservative portfolio</span>
+<span class="c1">#     conservative_table = MC_conservative.summarize_cumulative_return()</span>
 
-<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately conservative portfolio</span>
-    <span class="n">MC_moderately_conservative</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
-        <span class="n">moderately_conservative_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">05</span><span class="p">],</span>
-        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
-    <span class="p">)</span>
+<span class="c1"># # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately conservative portfolio</span>
+<span class="c1">#     MC_moderately_conservative = MCSimulation(</span>
+<span class="c1">#         moderately_conservative_portfolio_df = close_df,</span>
+<span class="c1">#         weights = [.25, .7, .05],</span>
+<span class="c1">#         num_simulation = 1000,</span>
+<span class="c1">#         num_trading_days = 252*10</span>
+<span class="c1">#     )</span>
     
-    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
-    <span class="n">MC_moderately_conservative</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+<span class="c1">#     MC_moderately_conservative.calc_cumulative_return()</span>
     
-    <span class="c1"># Save the summary statistics information in a variable for conservative portfolio</span>
-    <span class="n">moderately_conservative_table</span> <span class="o">=</span> <span class="n">MC_moderately_conservative</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Save the summary statistics information in a variable for conservative portfolio</span>
+<span class="c1">#     moderately_conservative_table = MC_moderately_conservative.summarize_cumulative_return()</span>
 
-<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderate portfolio</span>
-    <span class="n">MC_moderate</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
-        <span class="n">moderate_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">],</span>
-        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
-    <span class="p">)</span>
+<span class="c1"># # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderate portfolio</span>
+<span class="c1">#     MC_moderate = MCSimulation(</span>
+<span class="c1">#         moderate_portfolio_df = close_df,</span>
+<span class="c1">#         weights = [.6, .3, .1],</span>
+<span class="c1">#         num_simulation = 1000,</span>
+<span class="c1">#         num_trading_days = 252*10</span>
+<span class="c1">#     )</span>
     
-    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
-    <span class="n">MC_moderate</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+<span class="c1">#     MC_moderate.calc_cumulative_return()</span>
 
-    <span class="c1"># Save the summary statistics information in a variable for moderate portfolio</span>
-    <span class="n">moderate_table</span> <span class="o">=</span> <span class="n">MC_moderate</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Save the summary statistics information in a variable for moderate portfolio</span>
+<span class="c1">#     moderate_table = MC_moderate.summarize_cumulative_return()</span>
     
-<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately aggressive portfolio</span>
-    <span class="n">MC_moderately_aggressive</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
-        <span class="n">moderately_aggressive_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">15</span><span class="p">],</span>
-        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
-    <span class="p">)</span>
+<span class="c1"># # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of moderately aggressive portfolio</span>
+<span class="c1">#     MC_moderately_aggressive = MCSimulation(</span>
+<span class="c1">#         moderately_aggressive_portfolio_df = close_df,</span>
+<span class="c1">#         weights = [.75, .1, .15],</span>
+<span class="c1">#         num_simulation = 1000,</span>
+<span class="c1">#         num_trading_days = 252*10</span>
+<span class="c1">#     )</span>
     
-    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
-    <span class="n">MC_moderately_aggressive</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+<span class="c1">#     MC_moderately_aggressive.calc_cumulative_return()</span>
     
-    <span class="c1"># Save the summary statistics information in a variable for moderately aggressive portfolio</span>
-    <span class="n">moderately_aggressive_table</span> <span class="o">=</span> <span class="n">MC_moderately_aggressive</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Save the summary statistics information in a variable for moderately aggressive portfolio</span>
+<span class="c1">#     moderately_aggressive_table = MC_moderately_aggressive.summarize_cumulative_return()</span>
     
-<span class="c1"># Configure a Monte Carlo simulation to forecast 10 years cumulative returns of aggressive portfolio</span>
-    <span class="n">MC_aggressive</span> <span class="o">=</span> <span class="n">MCSimulation</span><span class="p">(</span>
-        <span class="n">aggressive_portfolio_df</span> <span class="o">=</span> <span class="n">close_df</span><span class="p">,</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">],</span>
-        <span class="n">num_simulation</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">num_trading_days</span> <span class="o">=</span> <span class="mi">252</span><span class="o">*</span><span class="mi">10</span>
-    <span class="p">)</span>
+<span class="c1"># # Configure a Monte Carlo simulation to forecast 10 years cumulative returns of aggressive portfolio</span>
+<span class="c1">#     MC_aggressive = MCSimulation(</span>
+<span class="c1">#         aggressive_portfolio_df = close_df,</span>
+<span class="c1">#         weights = [.8, 0, .2],</span>
+<span class="c1">#         num_simulation = 1000,</span>
+<span class="c1">#         num_trading_days = 252*10</span>
+<span class="c1">#     )</span>
     
-    <span class="c1"># Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
-    <span class="n">MC_aggressive</span><span class="o">.</span><span class="n">calc_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Run a Monte Carlo simulation to forecast 10 years cumulative returns</span>
+<span class="c1">#     MC_aggressive.calc_cumulative_return()</span>
     
-    <span class="c1"># Save the summary statistics information in a variable for aggressive portfolio</span>
-    <span class="n">aggressive_table</span> <span class="o">=</span> <span class="n">MC_aggressive</span><span class="o">.</span><span class="n">summarize_cumulative_return</span><span class="p">()</span>
+<span class="c1">#     # Save the summary statistics information in a variable for aggressive portfolio</span>
+<span class="c1">#     aggressive_table = MC_aggressive.summarize_cumulative_return()</span>
 </pre></div>
 </div>
 </div>

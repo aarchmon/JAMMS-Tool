@@ -100,21 +100,19 @@ def risk_profile():
     else:
         score += 3
 
-    print(f"SCORE = {score}")
-
     avg_score = score / 2
     if avg_score == 1:
-        print(f"Your Risk Profile is: Conservative")
+        print(f"Your Risk Profile is: Conservative \n")
         return "conservative"
     elif avg_score == 1.5:
-        print(f"Your Risk Profile is: Moderately Conservative")
+        print(f"Your Risk Profile is: Moderately Conservative \n")
         return "moderately conservative"
     elif avg_score == 2:
-        print(f"Your Risk Profile is: Moderate")
+        print(f"Your Risk Profile is: Moderate \n")
         return "moderate"
     elif avg_score == 2.5:
-        print(f"Your Risk Profile is: Moderately Aggressive")
+        print(f"Your Risk Profile is: Moderately Aggressive \n")
         return "moderately aggressive"
     else:
-        print(f"Your Risk Profile is: Aggressive")
+        print(f"Your Risk Profile is: Aggressive \n")
         return "aggressive"

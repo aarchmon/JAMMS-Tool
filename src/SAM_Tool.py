@@ -30,6 +30,10 @@ from include.visualizer import create_MC_object
 from include.visualizer import run_MC_Simulation
 from include.visualizer import retrieve_MC_summary
 
+# Import Efficient Frontier functions.
+from include.efficient_frontier import generate_random_portfolios
+from include.efficient_frontier import determine_optimal_portfolio
+
 # Tickers.
 timeframe = "1D"
 tickers = ["SPY", "AGG", "XWEB"]
@@ -65,16 +69,23 @@ def run():
     # Calculate Sharpe Ratios. 
     print("SHARPE RATIOS")
     print(calculate_sharpe_ratio(average_annual_returns_df, average_annual_volatility_df))
+    print()
 
     # Calculate portfolio returns per risk profile.
     print("PORTFOLIO RETURNS PER RISK PROFILE")
-    print(calculate_portfolio_return(average_annual_returns_df, risk_profile_weights[risk_prof]) * 100)
+    print(f"{calculate_portfolio_return(average_annual_returns_df, risk_profile_weights[risk_prof]) * 100: .2f}")
+    print()
 
     # Run Monte-Carlo Simulation.
     MC_Sim = create_MC_object(raw_data_df, risk_profile_weights[risk_prof], 500, 252*10)
     run_MC_Simulation(MC_Sim)
     retrieve_MC_summary(MC_Sim)
     MC_Sim.plot_simulation()
+
+    # Determine optimized portfolios.
+    portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights = generate_random_portfolios(100, 3, daily_returns_df)
+    portfolio_metrics = [portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights]
+    determine_optimal_portfolio(portfolio_metrics)
 
     # Exit out of program.
     sys.exit()
