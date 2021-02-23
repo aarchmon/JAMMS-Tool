@@ -70,15 +70,12 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
 
 
 def calculate_portfolio_std(risk_prof):
-<<<<<<< HEAD
     """
     Calculate the colatility on the portfolio.
     Must be ran after calculate_daily_returns()
     
     :param weights: 
     """
-=======
->>>>>>> 22eb0ef6bf96fe9ab43897e99023f134dbf04031
     weights=np.array(risk_profile_weights[risk_prof])
     portfolio__annual_cov_df=daily_returns_df.cov()*252
     portfolio_variance=np.dot(weights.T, np.dot(portfolio__annual_cov_df, weights))
