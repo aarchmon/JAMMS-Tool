@@ -22,6 +22,8 @@ from include.calculations import calculate_average_annual_volatility
 from include.calculations import calculate_daily_returns
 from include.calculations import calculate_sharpe_ratio
 from include.calculations import calculate_portfolio_return
+from include.calculations import calculate_portfolio_volatility
+from include.calculations import calculate_portfolio_sharpe_ratio
 
 # Import Monte-Carlo Simulation tools.
 from include.MCForcastTools import MCSimulation
@@ -67,8 +69,15 @@ def run():
     average_annual_returns_df = calculate_average_annual_returns(daily_returns_df)
     average_annual_volatility_df = calculate_average_annual_volatility(daily_returns_df)
 
+    # Calculate portfolio volatility.
+    portfolio_volatility = calculate_portfolio_volatility(daily_returns_df, risk_profile_weights[risk_prof])
+    print(portfolio_volatility)
+
+    # Calculate portfolio Sharpe Ratio.
+    portfolio_sharpe_ratio = calculate_portfolio_sharpe_ratio(average_annual_returns_df, portfolio_volatility)
+
     # Calculate Sharpe Ratios. 
-    print("SHARPE RATIOS")
+    print("SHARPE RATIO OF DATA")
     print(calculate_sharpe_ratio(average_annual_returns_df, average_annual_volatility_df))
     print()
 
@@ -78,15 +87,25 @@ def run():
     print()
 
     # Run Monte-Carlo Simulation.
-    MC_Sim = create_MC_object(raw_data_df, risk_profile_weights[risk_prof], 500, 252*10)
-    run_MC_Simulation(MC_Sim)
-    retrieve_MC_summary(MC_Sim)
-    MC_Sim.plot_simulation()
+    # MC_Sim = create_MC_object(raw_data_df, risk_profile_weights[risk_prof], 500, 252*10)
+    # run_MC_Simulation(MC_Sim)
+    # retrieve_MC_summary(MC_Sim)
+    # MC_Sim.plot_simulation()
 
     # Determine optimized portfolios.
     portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights = generate_random_portfolios(100, 3, daily_returns_df)
     portfolio_metrics = [portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights]
     determine_optimal_portfolio(portfolio_metrics)
+
+    # Print comparison data.
+    # Profile per computed risk profile.
+    print("\nPortfolio per Risk Profile")
+    print("=============================")
+    print(f"Volatility = {portfolio_volatility: .2f}")
+    print(f"Weights = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
+    print("-----------------------------")
+    print("Sharpe Ratio:")
+    print(portfolio_sharpe_ratio)
 
     # Exit out of program.
     sys.exit()
