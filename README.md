@@ -12,22 +12,10 @@ This can be a useful tool for first time investors to assess their investments u
 
 ---
 ## Systems Diagram
-![Systems Diagram]("./Systems_Diagrams/Pipelines/main_pipeline.png")
+![Systems Diagram](./Systems_Diagrams/Pipelines/main_pipeline.png)
 
 ---
-## Installation Guidecs
-    * Python
-    * Pandas
-    * Matplotlib
-    * NumPy
-    * SciPy
-    * Monte Carlo
-    * Alpaca API
-    * OS
-    * Questionary
-    * Fire
-
-# Import libraries and dependencies
+## Installation Guides / Import libraries and dependencies
 
 import pandas as pd
 import numpy as np
@@ -40,6 +28,8 @@ from pytz import timezone
 import sys
 import fire
 from pathlib import Path
+%matplotlib inline
+import hvplot.pandas
 
 
 ---
@@ -76,6 +66,17 @@ Average the score from ability and willingness to take risk. Assign each score a
     * 2 = Moderate
     * 2.5 = Moderately Aggressive
     * 3 = Aggressive
+    
+
+### Gather and clean Data for SPY, AGG, BTC
+Resources:
+    * SPY.csv
+    * AGG.csv
+    * BTC.csv
+
+Plot daily return and cumulative return for all asset classes
+![daily return](./Images/asset_daily_return_hvplot.png)
+![cumulative return](./Images/asset_cumulative_return_plot.png)
 
 ---
 ## Calculations
@@ -86,9 +87,15 @@ Based on investor's profile, calculate the portfolio's average annualized return
 
 ---
 ## Output / Visualizations
-Based on each user's input and risk profile, display Portfolio return, volatility, sharpe ratio in a table along with optimal portfolio return, volatility, sharpe ration based on efficient frontier
-Specific ticker against portfolio/benchmark
-Monte Carlo Simulation
+* Based on each user's input and risk profile, display Portfolio return, volatility, sharpe ratio in a table 
+![Risk_Profile_Table](./Images/risk_profile_table.png)
+![Risk_Profile_Sharpe](./Images/risk_profile_sharpe_barchart.png)
+![Risk_Profile_Sharpe](./Images/risk_profile_return_barchart.png)
+![Risk_Profile_Sharpe](./Images/risk_profile_vol_barchart.png)
+
+* optimal portfolio return, volatility, sharpe ratio based on efficient frontier
+* Specific ticker against portfolio/benchmark
+* Monte Carlo Simulation
 
 ---
 ## Contributors
