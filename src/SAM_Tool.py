@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
 import datetime as dt
 from pytz import timezone
+import numpy as np 
 
 # Import profiler functions.
 from include.profiler import get_info
