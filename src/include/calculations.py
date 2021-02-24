@@ -9,6 +9,13 @@ NOTE: All functions within this module will operate under the assumption that th
         prices of assets.
 """
 
+import numpy as np
+
+# Weights per client risk profile.  
+risk_profile_weights = {"conservative" : [0.1, 0.9, 0.0], "moderately conservative" : [0.25, 0.7, 0.05], 
+                        "moderate" : [0.6, 0.3, 0.1], "moderately aggressive" : [0.75, 0.2, 0.05],
+                        "aggressive" : [0.8, 0, 0.2]}
+
 def calculate_daily_returns(closing_prices_df):
     """
     Calculates the daily returns on closing prices.
@@ -67,7 +74,7 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
     """
     portfolio_return_df = average_annual_returns_df.mul(weight).sum()
     return portfolio_return_df
-    
+
 def calculate_portfolio_volatility(daily_returns_df, risk_prof):
     """
     Calculate the volatility of the portfolio.
@@ -78,7 +85,7 @@ def calculate_portfolio_volatility(daily_returns_df, risk_prof):
     :type daily_returns_df: Pandas DataFrame.
     :type risk_prof: string
     """
-    weights = np.array(risk_profile_weights[risk_prof])
+    weights = np.array(risk_prof)
     portfolio_covariance = daily_returns_df.cov() * 252
     portfolio_variance = np.dot(weights.T, np.dot(portfolio_covariance, weights))
     portfolio_volatility = np.sqrt(portfolio_variance)
@@ -94,5 +101,5 @@ def calculate_portfolio_sharpe_ratio(portfolio_return_df, portfolio_volatility):
     :type portfolio_return_df: Pandas DataFrame.
     :type portfolio_volatility: float
     """
-    portfolio_sharpe_ratio= portfolio_return_df / portfolio_volatility
+    portfolio_sharpe_ratio = portfolio_return_df / portfolio_volatility
     return portfolio_sharpe_ratio
