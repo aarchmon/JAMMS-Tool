@@ -195,8 +195,9 @@ This information will be used to etermine overall strategic asset allocation ble
 <span class="sd">    :rtype profile: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
     
-    <span class="n">age</span> <span class="o">=</span> <span class="n">questionary</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;What is your age?&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ask</span><span class="p">()</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">get_value</span><span class="p">(</span><span class="n">age</span><span class="p">,</span> <span class="s2">&quot;What is your age?&quot;</span><span class="p">)</span>
     <span class="n">time_horizon</span> <span class="o">=</span> <span class="p">(</span><span class="mi">65</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">age</span><span class="p">))</span>
     
     <span class="k">if</span> <span class="n">time_horizon</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>

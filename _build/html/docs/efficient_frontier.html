@@ -63,6 +63,20 @@
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="efficient_frontier.plot_efficient_frontier">
+<code class="sig-prename descclassname"><span class="pre">efficient_frontier.</span></code><code class="sig-name descname"><span class="pre">plot_efficient_frontier</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_risk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">portfolio_returns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#efficient_frontier.plot_efficient_frontier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot Efficient Frontier based off of randomized portfolio risk and returns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>porfolio_risk</strong> – Randomized portfolio risks.</p></li>
+<li><p><strong>portfolio_returns</strong> (<em>Numpy array.</em>) – Randomized portfolio returns associated with its respective risk.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required modules.</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -135,17 +149,37 @@
     <span class="n">min_risk</span> <span class="o">=</span> <span class="n">portfolios_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">portfolios_df</span><span class="p">[</span><span class="s2">&quot;portfolio_risk&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
 
     <span class="c1"># Print out results.</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO WITH GREATEST SHARPE RATIO&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Portfolio with Greatest Sharpe Ratio&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=====================================================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe Ratio = </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (XWEB)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">greatest_sharpe_ratio_portfolio</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (BTC)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">()</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORTFOLIO WITH LEAST RISK&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Portfolio with Least Risk&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=====================================================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Returns = </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sharpe Ratio = </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (XWEB)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weighting = [</span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (SPY), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2"> .2f</span><span class="si">}</span><span class="s2"> (AGG), </span><span class="si">{</span><span class="n">min_risk</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (BTC)]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------------------------&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">plot_efficient_frontier</span><span class="p">(</span><span class="n">portfolio_risk</span><span class="p">,</span> <span class="n">portfolio_returns</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot Efficient Frontier based off of randomized portfolio risk and returns.</span>
+
+<span class="sd">    :param porfolio_risk: Randomized portfolio risks.</span>
+<span class="sd">    :param portfolio_returns: Randomized portfolio returns associated with its respective risk.</span>
+<span class="sd">    :type portfolio_risk: Numpy array.</span>
+<span class="sd">    :type portfolio_returns: Numpy array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">portfolio_risk</span><span class="p">,</span> <span class="n">portfolio_returns</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">portfolio_returns</span> <span class="o">/</span> <span class="n">portfolio_risk</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Volatility&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Returns&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sharpe ratio&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

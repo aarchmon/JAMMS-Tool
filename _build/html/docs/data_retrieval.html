@@ -105,6 +105,11 @@ a series of financial calculations.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="data_retrieval.import_csv">
+<code class="sig-prename descclassname"><span class="pre">data_retrieval.</span></code><code class="sig-name descname"><span class="pre">import_csv</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_retrieval.import_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Data Retrieval Module</span>
@@ -235,6 +240,16 @@ a series of financial calculations.</p>
 
     <span class="c1"># Return closing prices.</span>
     <span class="k">return</span> <span class="n">closing_prices_df</span>
+
+<span class="k">def</span> <span class="nf">import_csv</span><span class="p">():</span>
+    <span class="n">agg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./Resources/AGG.csv&quot;</span><span class="p">)</span>
+    <span class="n">btc_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./Resources/BTC.csv&quot;</span><span class="p">)</span>
+    <span class="n">spy_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./Resources/SPY.csv&quot;</span><span class="p">)</span>
+    <span class="n">main_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">main_df</span><span class="p">[</span><span class="s2">&quot;AGG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">agg_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+    <span class="n">main_df</span><span class="p">[</span><span class="s2">&quot;SPY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spy_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+    <span class="n">main_df</span><span class="p">[</span><span class="s2">&quot;BTC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">btc_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">main_df</span>
 </pre></div>
 </div>
 </div>
