@@ -81,3 +81,19 @@ def determine_optimal_portfolio(portfolio_metrics):
     print(f"Sharpe Ratio = {min_risk[1]: .2f}")
     print(f"Weighting = [{min_risk[3][0]: .2f} (SPY), {min_risk[3][1]: .2f} (AGG), {min_risk[3][2]:.2f} (XWEB)]")
     print()
+
+def plot_efficient_frontier(portfolio_risk, portfolio_returns):
+    """
+    Plot Efficient Frontier based off of randomized portfolio risk and returns.
+
+    :param porfolio_risk: Randomized portfolio risks.
+    :param portfolio_returns: Randomized portfolio returns associated with its respective risk.
+    :type portfolio_risk: Numpy array.
+    :type portfolio_returns: Numpy array.
+    """
+
+    plt.figure(figsize=(10, 5))
+    plt.scatter(portfolio_risk, portfolio_returns, c = portfolio_returns / portfolio_risk) 
+    plt.xlabel('Volatility')
+    plt.ylabel('Returns')
+    plt.colorbar(label='Sharpe ratio')

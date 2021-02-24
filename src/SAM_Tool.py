@@ -15,6 +15,7 @@ from include.profiler import risk_profile
 # Import data retrieval.
 from include.data_retrieval import import_asset_data
 from include.data_retrieval import format_close_price
+from include.data_retrieval import import_csv
 
 # Import calculation functions.
 from include.calculations import calculate_average_annual_returns
@@ -46,7 +47,7 @@ end_date = "2020-06-01"
 # Weights per client risk profile.  
 risk_profile_weights = {"conservative" : [0.1, 0.9, 0.0], "moderately conservative" : [0.25, 0.7, 0.05], 
                         "moderate" : [0.6, 0.3, 0.1], "moderately aggressive" : [0.75, 0.2, 0.05],
-                        "aggressive" : [0.8, 0, 0.2]}
+                        "aggressive" : [0.8, 0.0, 0.2]}
                   
 def run():
     """The main function for running the script."""
@@ -61,29 +62,32 @@ def run():
     risk_prof = risk_profile()
 
     # Import historical financial data and retrieve closing prices.
-    raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
-    raw_data_close_df = format_close_price(raw_data_df, tickers)
+    #raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
+    #aw_data_close_df = format_close_price(raw_data_df, tickers)
+    raw_data_close_df = import_csv()
+    print(raw_data_close_df)
 
     # Retrieve average annual returns and average annual volatility.
     daily_returns_df = calculate_daily_returns(raw_data_close_df)
     average_annual_returns_df = calculate_average_annual_returns(daily_returns_df)
     average_annual_volatility_df = calculate_average_annual_volatility(daily_returns_df)
 
-    # Calculate portfolio volatility.
-    portfolio_volatility = calculate_portfolio_volatility(daily_returns_df, risk_profile_weights[risk_prof])
-    print(portfolio_volatility)
-
-    # Calculate portfolio Sharpe Ratio.
-    portfolio_sharpe_ratio = calculate_portfolio_sharpe_ratio(average_annual_returns_df, portfolio_volatility)
-
-    # Calculate Sharpe Ratios. 
-    print("SHARPE RATIO OF DATA")
-    print(calculate_sharpe_ratio(average_annual_returns_df, average_annual_volatility_df))
+    # Calculate portfolio returns per risk profile.
+    portfolio_return = calculate_portfolio_return(average_annual_returns_df, risk_profile_weights[risk_prof])
+    print("PORTFOLIO RETURNS PER RISK PROFILE")
+    print(f"{portfolio_return * 100: .2f}")
     print()
 
-    # Calculate portfolio returns per risk profile.
-    print("PORTFOLIO RETURNS PER RISK PROFILE")
-    print(f"{calculate_portfolio_return(average_annual_returns_df, risk_profile_weights[risk_prof]) * 100: .2f}")
+    # Calculate portfolio volatility.
+    portfolio_volatility = calculate_portfolio_volatility(daily_returns_df, risk_profile_weights[risk_prof])
+    print("PORTFOLIO VOLATILITY")
+    print(f"{portfolio_volatility * 100: .2f}")
+    print()
+
+    # Calculate portfolio Sharpe Ratio.
+    portfolio_sharpe_ratio = calculate_portfolio_sharpe_ratio(portfolio_return, portfolio_volatility)
+    print("PORTFOLIO SHARPE RATIO")
+    print(f"{portfolio_sharpe_ratio: .2f}")
     print()
 
     # Run Monte-Carlo Simulation.
