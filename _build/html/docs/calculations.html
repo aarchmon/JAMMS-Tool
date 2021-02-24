@@ -91,13 +91,43 @@ Must only be ran after calculate_daily_returns() method has been called.</p>
 
 <dl class="py function">
 <dt id="calculations.calculate_portfolio_return">
-<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_portfolio_return</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">average_annual_returns_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_portfolio_return" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_portfolio_return</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">daily_returns_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_portfolio_return" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the portfolio return per a given weight based off of client risk profile.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>average_annual_returns_df</strong> (<em>Pandas DataFrame.</em>) – Average annual returns of asset data.</p></li>
 <li><p><strong>weight</strong> (<em>float list</em>) – Portfolio weight per client risk profile.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_portfolio_sharpe_ratio">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_portfolio_sharpe_ratio</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">portfolio_return_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">portfolio_volatility</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_portfolio_sharpe_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the sharpe ratio of the portfolio.
+Must only be ran after calculate_portfolio_return() and calculate_portfolio_volatility().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>portfolio_return_df</strong> (<em>Pandas DataFrame.</em>) – Average annual returns of the portfolio.</p></li>
+<li><p><strong>portfolio_volatility</strong> (<em>float</em>) – Portfolio volatility</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="calculations.calculate_portfolio_volatility">
+<code class="sig-prename descclassname"><span class="pre">calculations.</span></code><code class="sig-name descname"><span class="pre">calculate_portfolio_volatility</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">daily_returns_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculations.calculate_portfolio_volatility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the volatility of the portfolio.
+Must only be ran after calculate_daily_returns() and risk_profile() methods have been called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>daily_returns_df</strong> (<em>Pandas DataFrame.</em>) – Daily returns.</p></li>
+<li><p><strong>risk_prof</strong> (<em>string</em>) – client risk profile.</p></li>
 </ul>
 </dd>
 </dl>

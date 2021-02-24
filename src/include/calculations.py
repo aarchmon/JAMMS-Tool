@@ -63,7 +63,7 @@ def calculate_sharpe_ratio(avg_annual_returns_df, avg_annual_volatility_df):
     avg_annual_sharpe_ratio_df = avg_annual_returns_df / avg_annual_volatility_df
     return avg_annual_sharpe_ratio_df
 
-def calculate_portfolio_return(average_annual_returns_df, weight):
+def calculate_portfolio_return(daily_returns_df, weight):
     """
     Calculate the portfolio return per a given weight based off of client risk profile.
 
@@ -72,7 +72,7 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
     :type average_annual_returns_df: Pandas DataFrame.
     :type weight: float list
     """
-    portfolio_return_df = average_annual_returns_df.mul(weight).sum()
+    portfolio_return_df = daily_returns_df.mean().mul(weight).sum() * 252
     return portfolio_return_df
 
 def calculate_portfolio_volatility(daily_returns_df, weight):

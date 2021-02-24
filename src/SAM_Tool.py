@@ -7,6 +7,7 @@ import datetime as dt
 from pytz import timezone
 import numpy as np 
 
+
 # Import profiler functions.
 from include.profiler import get_info
 from include.profiler import qualification
@@ -40,9 +41,9 @@ from include.efficient_frontier import determine_optimal_portfolio
 
 # Tickers.
 timeframe = "1D"
-tickers = ["SPY", "AGG", "XWEB"]
-start_date = "2010-06-01"
-end_date = "2020-06-01"
+tickers = ["SPY", "AGG", "BTC"]
+#start_date = "2010-06-01"
+#end_date = "2020-06-01"
 
 # Weights per client risk profile.  
 risk_profile_weights = {"conservative" : [0.1, 0.9, 0.0], "moderately conservative" : [0.25, 0.7, 0.05], 
@@ -65,36 +66,27 @@ def run():
     #raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
     #aw_data_close_df = format_close_price(raw_data_df, tickers)
     raw_data_close_df = import_csv()
-    print(raw_data_close_df)
 
     # Retrieve average annual returns and average annual volatility.
     daily_returns_df = calculate_daily_returns(raw_data_close_df)
     average_annual_returns_df = calculate_average_annual_returns(daily_returns_df)
     average_annual_volatility_df = calculate_average_annual_volatility(daily_returns_df)
 
-    # Calculate portfolio returns per risk profile.
-    portfolio_return = calculate_portfolio_return(average_annual_returns_df, risk_profile_weights[risk_prof])
-    print("PORTFOLIO RETURNS PER RISK PROFILE")
-    print(f"{portfolio_return * 100: .2f}")
-    print()
 
-    # Calculate portfolio volatility.
+    # Calculate portfolio returns, volatility and Sharpe Ratio per risk profile.
+    portfolio_return = calculate_portfolio_return(daily_returns_df, risk_profile_weights[risk_prof])
     portfolio_volatility = calculate_portfolio_volatility(daily_returns_df, risk_profile_weights[risk_prof])
-    print("PORTFOLIO VOLATILITY")
-    print(f"{portfolio_volatility * 100: .2f}")
-    print()
-
-    # Calculate portfolio Sharpe Ratio.
     portfolio_sharpe_ratio = calculate_portfolio_sharpe_ratio(portfolio_return, portfolio_volatility)
-    print("PORTFOLIO SHARPE RATIO")
-    print(f"{portfolio_sharpe_ratio: .2f}")
-    print()
 
-    # Run Monte-Carlo Simulation.
-    # MC_Sim = create_MC_object(raw_data_df, risk_profile_weights[risk_prof], 500, 252*10)
-    # run_MC_Simulation(MC_Sim)
-    # retrieve_MC_summary(MC_Sim)
-    # MC_Sim.plot_simulation()
+    # Print portfolio metrics (5-year).
+    print("Portfolio Statistics per Client Risk Profile (5-Year)")
+    print("=====================================================")
+    print(f"Return = {portfolio_return * 100: .2f}%")
+    print(f"Volatility = {portfolio_volatility * 100: .2f}%")
+    print(f"Sharpe Ratio = {portfolio_sharpe_ratio: .2f}")
+    print(f"Weighting = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
+    print("-----------------------------------------------------")
+    print()
 
     # Determine optimized portfolios.
     portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights = generate_random_portfolios(100, 3, daily_returns_df)
@@ -103,13 +95,13 @@ def run():
 
     # Print comparison data.
     # Profile per computed risk profile.
-    print("\nPortfolio per Risk Profile")
-    print("=============================")
-    print(f"Volatility = {portfolio_volatility: .2f}")
-    print(f"Weights = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
-    print("-----------------------------")
-    print("Sharpe Ratio:")
-    print(portfolio_sharpe_ratio)
+    # print("\nPortfolio per Risk Profile")
+    # print("=============================")
+    # print(f"Volatility = {portfolio_volatility: .2f}")
+    # print(f"Weights = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
+    # print("-----------------------------")
+    # print("Sharpe Ratio:")
+    # print(portfolio_sharpe_ratio)
 
     # Exit out of program.
     sys.exit()

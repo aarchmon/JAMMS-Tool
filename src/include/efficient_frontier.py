@@ -70,16 +70,20 @@ def determine_optimal_portfolio(portfolio_metrics):
     min_risk = portfolios_df.iloc[portfolios_df["portfolio_risk"].idxmin()]
 
     # Print out results.
-    print("PORTFOLIO WITH GREATEST SHARPE RATIO")
-    print(f"Returns = {greatest_sharpe_ratio_portfolio[0]: .2f}")
+    print("Portfolio with Greatest Sharpe Ratio")
+    print("=====================================================")
+    print(f"Returns = {greatest_sharpe_ratio_portfolio[0] * 100: .2f}%")
     print(f"Sharpe Ratio = {greatest_sharpe_ratio_portfolio[1]: .2f}")
-    print(f"Weighting = [{greatest_sharpe_ratio_portfolio[3][0]: .2f} (SPY), {greatest_sharpe_ratio_portfolio[3][1]: .2f} (AGG), {greatest_sharpe_ratio_portfolio[3][2]:.2f} (XWEB)]")
+    print(f"Weighting = [{greatest_sharpe_ratio_portfolio[3][0]: .2f} (SPY), {greatest_sharpe_ratio_portfolio[3][1]: .2f} (AGG), {greatest_sharpe_ratio_portfolio[3][2]:.2f} (BTC)]")
+    print("-----------------------------------------------------")
     print()
 
-    print("PORTFOLIO WITH LEAST RISK")
-    print(f"Returns = {min_risk[0]: .2f}")
+    print("Portfolio with Least Risk")
+    print("=====================================================")
+    print(f"Returns = {min_risk[0] * 100: .2f}%")
     print(f"Sharpe Ratio = {min_risk[1]: .2f}")
-    print(f"Weighting = [{min_risk[3][0]: .2f} (SPY), {min_risk[3][1]: .2f} (AGG), {min_risk[3][2]:.2f} (XWEB)]")
+    print(f"Weighting = [{min_risk[3][0]: .2f} (SPY), {min_risk[3][1]: .2f} (AGG), {min_risk[3][2]:.2f} (BTC)]")
+    print("-----------------------------------------------------")
     print()
 
 def plot_efficient_frontier(portfolio_risk, portfolio_returns):
