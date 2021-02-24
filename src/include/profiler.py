@@ -8,7 +8,6 @@ This information will be used to etermine overall strategic asset allocation ble
 import sys
 import questionary
 
-risk_prof = ""
 
 def get_value(client_var, question):
     """
