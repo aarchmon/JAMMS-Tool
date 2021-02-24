@@ -70,14 +70,18 @@ Each risk profile assigns different allocation to risk assets such as stocks and
 
 ![SPY AGG BTC df](./Images/SPY_AGG_BTC_df.png)
 
-### Gather and clean Data for SPY, AGG, BTC
+### Gather, clean, consolidate Dataframe for SPY, AGG, BTC
 Resources:
     * SPY.csv
     * AGG.csv
     * BTC.csv
 
-Plot daily return and cumulative return for all asset classes
+* Plot daily return
+combined_daily_return = combined_df.pct_change().dropna()
 ![daily return](./Images/asset_daily_return_hvplot.png)
+
+* Plot cumulative return for all asset classes
+combined_cumulative_return = (1 + combined_daily_return).cumprod() - 1
 ![cumulative return](./Images/asset_cumulative_return_plot.png)
 
 ---
