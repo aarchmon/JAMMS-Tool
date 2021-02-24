@@ -101,7 +101,10 @@ Based on investor's profile, calculate the portfolio's average annualized return
 
 ---
 ## Output / Visualizations
-* Based on each user's input and risk profile, display Portfolio return, volatility, sharpe ratio in a table 
+When we look at Sharpe Ratio, which is the risk adjusted return, we find that the most aggressive profile has the highest risk adjusted return but a moderately conservative portfolio had higher risk adjusted return than a moderate portfolio which is deemed to be riskier. While higer risk results in higher returns, this goes to show the value of diversification over different market environments.
+
+* Based on each user's input and risk profile, display Portfolio return, volatility, sharpe ratio in a table.
+
 ![Risk_Profile_Table](./Images/risk_profile_table.png)
 ![Risk_Profile_Sharpe](./Images/risk_profile_sharpe_barchart.png)
 ![Risk_Profile_Sharpe](./Images/risk_profile_return_barchart.png)
