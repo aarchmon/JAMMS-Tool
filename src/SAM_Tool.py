@@ -66,12 +66,13 @@ def run():
     #raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
     #aw_data_close_df = format_close_price(raw_data_df, tickers)
     raw_data_close_df = import_csv()
+    raw_data_close_df.head(10)
 
     # Retrieve average annual returns and average annual volatility.
     daily_returns_df = calculate_daily_returns(raw_data_close_df)
     average_annual_returns_df = calculate_average_annual_returns(daily_returns_df)
     average_annual_volatility_df = calculate_average_annual_volatility(daily_returns_df)
-
+    
 
     # Calculate portfolio returns, volatility and Sharpe Ratio per risk profile.
     portfolio_return = calculate_portfolio_return(daily_returns_df, risk_profile_weights[risk_prof])
@@ -84,7 +85,7 @@ def run():
     print(f"Return = {portfolio_return * 100: .2f}%")
     print(f"Volatility = {portfolio_volatility * 100: .2f}%")
     print(f"Sharpe Ratio = {portfolio_sharpe_ratio: .2f}")
-    print(f"Weighting = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
+    print(f"Weighting = [{risk_profile_weights[risk_prof][0]} (SPY), {risk_profile_weights[risk_prof][1]} (AGG), {risk_profile_weights[risk_prof][2]} (BTC)]")
     print("-----------------------------------------------------")
     print()
 
