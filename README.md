@@ -72,7 +72,12 @@ Each risk profile assigns different allocation to risk assets such as stocks and
 
 ### Gather, clean, consolidate Dataframe for SPY, AGG, BTC
 Resources: 
-=GOOGLEFINANCE(ticker, [attribute], [start_date], [end_date|num_days], [interval])
+=GOOGLEFINANCE(ticker, [attribute], [start_date], [end_date|num_days], [interval]). 
+ * ticker = 'SPY', 'AGG', 'CURRENCY:BTCUSD'
+ * attribute = 'close'
+ * start_date = 12/31/2010
+ * end_date = 12/31/2020
+
 Close prices between 12/31/2010 to 12/31/2020 gathered from GOOGLEFINANCE and exported as CSV. We used SPY ETF (S&P 500 Index) as a proxy for stocks, Bitcoin as a proxy for crypto assets, and AGG ETF (US Aggregate Bond Index) as a proxy for bonds. The dataframe is limited to 11/20/2015 to 12/28/2020 due to lack of historical data for Bitcoin only dating to 11/20/2015 in GOOGLEFINANCE
 
     * SPY.csv (close price, timeframe = 11/20/2015 - 12/31/2020)
