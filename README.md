@@ -66,7 +66,7 @@ Average the score from ability and willingness to take risk. Assign each score a
     * 2.5 = Moderately Aggressive
     * 3 = Aggressive
 
-Each risk profile assigns different allocation to risk assets such as stocks and crypto to a more conservative asset like bonds. For example, we assigned higher weighting to riskier assets like crypto and stocks for an aggressive profile and vice versa for conservative investor. We used SPY ETF (S&P 500 Index) as a proxy for stocks, Bitcoin as a proxy for crypto assets, and AGG ETF (US Aggregate Bond Index) as a proxy for bonds. The dataframe is limited to 11/20/2015 to 12/31/2020 due to lack of historical data in GOOGLE FINANCE
+Each risk profile assigns different allocation to risk assets such as stocks and crypto to a more conservative asset like bonds. For example, we assigned higher weighting to riskier assets like crypto and stocks for an aggressive profile and vice versa for conservative investor. We used SPY ETF (S&P 500 Index) as a proxy for stocks, Bitcoin as a proxy for crypto assets, and AGG ETF (US Aggregate Bond Index) as a proxy for bonds. The dataframe is limited to 11/20/2015 to 12/28/2020 due to lack of historical data for Bitcoin only dating to 11/20/2015 in GOOGLE FINANCE
 
 ![SPY AGG BTC df](./Images/SPY_AGG_BTC_df.png)
 
