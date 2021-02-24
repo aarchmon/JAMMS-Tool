@@ -14,7 +14,7 @@ import numpy as np
 # Weights per client risk profile.  
 risk_profile_weights = {"conservative" : [0.1, 0.9, 0.0], "moderately conservative" : [0.25, 0.7, 0.05], 
                         "moderate" : [0.6, 0.3, 0.1], "moderately aggressive" : [0.75, 0.2, 0.05],
-                        "aggressive" : [0.8, 0, 0.2]}
+                        "aggressive" : [0.8, 0.0, 0.2]}
 
 def calculate_daily_returns(closing_prices_df):
     """
@@ -75,7 +75,7 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
     portfolio_return_df = average_annual_returns_df.mul(weight).sum()
     return portfolio_return_df
 
-def calculate_portfolio_volatility(daily_returns_df, risk_prof):
+def calculate_portfolio_volatility(daily_returns_df, weight):
     """
     Calculate the volatility of the portfolio.
     Must only be ran after calculate_daily_returns() and risk_profile() methods have been called.
@@ -85,9 +85,9 @@ def calculate_portfolio_volatility(daily_returns_df, risk_prof):
     :type daily_returns_df: Pandas DataFrame.
     :type risk_prof: string
     """
-    weights = np.array(risk_prof)
+    asset_weights = np.array(weight)
     portfolio_covariance = daily_returns_df.cov() * 252
-    portfolio_variance = np.dot(weights.T, np.dot(portfolio_covariance, weights))
+    portfolio_variance = np.dot(asset_weights.T, np.dot(portfolio_covariance, asset_weights))
     portfolio_volatility = np.sqrt(portfolio_variance)
     return portfolio_volatility
 

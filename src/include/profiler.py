@@ -80,8 +80,9 @@ def risk_profile():
     :rtype profile: str
     """
     score = 0
+    age = 0
     
-    age = questionary.text("What is your age?").ask()
+    age = get_value(age, "What is your age?")
     time_horizon = (65 - int(age))
     
     if time_horizon <= 5:
