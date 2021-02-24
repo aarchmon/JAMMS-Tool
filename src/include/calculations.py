@@ -75,25 +75,6 @@ def calculate_portfolio_return(average_annual_returns_df, weight):
     portfolio_return_df = average_annual_returns_df.mul(weight).sum()
     return portfolio_return_df
 
-
-def calculate_portfolio_std(risk_prof):
-    """
-    Calculate the colatility on the portfolio.
-    Must be ran after calculate_daily_returns()
-    
-    :param weights: 
-    """
-    weights=np.array(risk_profile_weights[risk_prof])
-    portfolio__annual_cov_df=daily_returns_df.cov()*252
-    portfolio_variance=np.dot(weights.T, np.dot(portfolio__annual_cov_df, weights))
-    portfolio_vol=np.sqrt(portfolio_variance)
-    return portfolio_vol
-
-  
-def calculate_portfolio_sharpe_ratio(portfolio_vol, portfolio_return_df):
-    portfolio_sharpe_ratio=portfolio_return_df/portfolio_vol
-
-    
 def calculate_portfolio_volatility(daily_returns_df, risk_prof):
     """
     Calculate the volatility of the portfolio.
