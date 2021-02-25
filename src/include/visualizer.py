@@ -4,7 +4,7 @@ Visualizer Module
 Visualizer module is responsible for outputting user-friendly visual aides. 
 """
 
-from include.MCForcastTools import MCSimulation
+from MCForcastTools import MCSimulation
 
 def create_MC_object(df, weight, num_sims, num_trade_days):
     """
