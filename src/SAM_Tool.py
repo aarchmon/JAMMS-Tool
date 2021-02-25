@@ -7,7 +7,6 @@ import datetime as dt
 from pytz import timezone
 import numpy as np 
 
-
 # Import profiler functions.
 from include.profiler import get_info
 from include.profiler import qualification
@@ -26,14 +25,6 @@ from include.calculations import calculate_sharpe_ratio
 from include.calculations import calculate_portfolio_return
 from include.calculations import calculate_portfolio_volatility
 from include.calculations import calculate_portfolio_sharpe_ratio
-
-# Import Monte-Carlo Simulation tools.
-from include.MCForcastTools import MCSimulation
-
-# Import Visualizer functions.
-from include.visualizer import create_MC_object
-from include.visualizer import run_MC_Simulation
-from include.visualizer import retrieve_MC_summary
 
 # Import Efficient Frontier functions.
 from include.efficient_frontier import generate_random_portfolios
@@ -93,16 +84,6 @@ def run():
     portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights = generate_random_portfolios(100, 3, daily_returns_df)
     portfolio_metrics = [portfolio_returns, portfolio_risk, sharpe_ratio_port, portfolio_weights]
     determine_optimal_portfolio(portfolio_metrics)
-
-    # Print comparison data.
-    # Profile per computed risk profile.
-    # print("\nPortfolio per Risk Profile")
-    # print("=============================")
-    # print(f"Volatility = {portfolio_volatility: .2f}")
-    # print(f"Weights = [{risk_profile_weights[risk_prof][0]}, {risk_profile_weights[risk_prof][1]}, {risk_profile_weights[risk_prof][2]}]")
-    # print("-----------------------------")
-    # print("Sharpe Ratio:")
-    # print(portfolio_sharpe_ratio)
 
     # Exit out of program.
     sys.exit()
