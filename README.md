@@ -68,28 +68,32 @@ Average the score from ability and willingness to take risk. Assign each score a
 
 Each risk profile assigns different allocation to risk assets such as stocks and crypto to a more conservative asset like bonds. For example, we assigned higher weighting to riskier assets like crypto and stocks for an aggressive profile and vice versa for conservative investor. 
 
-![SPY AGG BTC df](./Images/SPY_AGG_BTC_df.png)
+![termina](./Images/terminal.png)
 
 ### Gather, clean, consolidate Dataframe for SPY, AGG, BTC
 Resources: 
 =GOOGLEFINANCE(ticker, [attribute], [start_date], [end_date|num_days], [interval]). 
  * ticker = 'SPY', 'AGG', 'CURRENCY:BTCUSD'
  * attribute = 'close'
- * start_date = 12/31/2010
+ * start_date = 12/15/2010
  * end_date = 12/31/2020
 
-Close prices between 12/31/2010 to 12/31/2020 gathered from GOOGLEFINANCE and exported as CSV. We used SPY ETF (S&P 500 Index) as a proxy for stocks, AGG ETF (US Aggregate Bond Index) as a proxy for bonds, and Bitcoin as a proxy for crypto assets. The dataframe is limited to 11/20/2015 to 12/28/2020 due to lack of historical data for Bitcoin only dating to 11/20/2015 in GOOGLEFINANCE
+Close prices between 12/15/2010 to 12/31/2020 gathered from GOOGLEFINANCE and exported as CSV. We used SPY ETF (S&P 500 Index) as a proxy for stocks, AGG ETF (US Aggregate Bond Index) as a proxy for bonds, and Bitcoin as a proxy for crypto assets. The dataframe is limited to 5 years due to lack of historical data for Bitcoin only dating to 11/20/2015 in GOOGLEFINANCE
 
-    * SPY.csv (close price, timeframe = 11/20/2015 - 12/31/2020)
-    * AGG.csv (close price, timeframe = 12/31/2010 - 12/31/2020)
-    * BTC.csv (close price, timeframe = 12/31/2010 - 12/31/2020)
+    * SPY.csv
+    * AGG.csv
+    * BTC.csv
+    
+![SPY AGG BTC df](./Images/SPY_AGG_BTC_df.png)
 
 * Plot daily return
 combined_daily_return = combined_df.pct_change().dropna()
+
 ![daily return](./Images/asset_daily_return_hvplot.png)
 
 * Plot cumulative return for all asset classes
 combined_cumulative_return = (1 + combined_daily_return).cumprod() - 1
+
 ![cumulative return](./Images/asset_cumulative_return_plot.png)
 
 ---
@@ -110,9 +114,6 @@ When we look at Sharpe Ratio, which is the risk adjusted return, we find that th
 ![Risk_Profile_Sharpe](./Images/risk_profile_return_barchart.png)
 ![Risk_Profile_Sharpe](./Images/risk_profile_vol_barchart.png)
 
-* optimal portfolio return, volatility, sharpe ratio based on efficient frontier
-* Specific ticker against portfolio/benchmark
-* Monte Carlo Simulation
 
 ---
 ## Contributors
