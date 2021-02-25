@@ -64,9 +64,9 @@ def run():
 
     # Import historical financial data and retrieve closing prices.
     #raw_data_df = import_asset_data(start_date, end_date, tickers, timeframe)
-    #aw_data_close_df = format_close_price(raw_data_df, tickers)
-    raw_data_close_df = import_csv()
-    raw_data_close_df.head(10)
+    #raw_data_close_df = format_close_price(raw_data_df, tickers)
+    raw_data_close_df = import_csv()    
+    # raw_data_close_df.head(10)
 
     # Retrieve average annual returns and average annual volatility.
     daily_returns_df = calculate_daily_returns(raw_data_close_df)

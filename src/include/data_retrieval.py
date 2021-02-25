@@ -11,6 +11,7 @@ import pandas as pd
 from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
 import numpy as np
+from pathlib import Path
 
 def import_asset_data(start, end, tickers, timeframe):
     """
@@ -143,3 +144,22 @@ def import_csv():
     # main_df["SPY"] = spy_df["Close"]
     # main_df["BTC"] = btc_df["Close"]
     return main_df
+
+def jupyter_import_csv():
+    
+    csv_path_spy = Path("../Resources/SPY.csv")
+    csv_path_agg = Path("../Resources/AGG.csv")
+    csv_path_btc = Path("../Resources/BTC.csv")
+
+    spy_df = pd.read_csv(csv_path_spy,index_col='Date', parse_dates=True, infer_datetime_format=True)
+    agg_df = pd.read_csv(csv_path_agg,index_col='Date', parse_dates=True, infer_datetime_format=True)
+    btc_df = pd.read_csv(csv_path_btc,index_col='Date', parse_dates=True, infer_datetime_format=True)
+    
+    joined_df = pd.concat([spy_df, agg_df, btc_df], axis=1)
+    joined_df.columns = ['SPY', 'AGG', 'BTC']
+    
+    # main_df = pd.DataFrame()
+    # main_df["AGG"] = agg_df["Close"]
+    # main_df["SPY"] = spy_df["Close"]
+    # main_df["BTC"] = btc_df["Close"]
+    return joined_df
