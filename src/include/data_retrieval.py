@@ -129,18 +129,14 @@ def format_close_price(close_df, tickers):
     return closing_prices_df
 
 def import_csv():
+    spy_df = pd.read_csv("./Resources/SPY.csv")
     agg_df = pd.read_csv("./Resources/AGG.csv")
     btc_df = pd.read_csv("./Resources/BTC.csv")
-    spy_df = pd.read_csv("./Resources/SPY.csv")
 
-    spy_df.drop(columns=['Unnamed: 2', 'ticker', 'SPY'], inplace=True)
-    agg_df.drop(columns=['Unnamed: 2', 'ticker', 'AGG'], inplace=True)
-    btc_df.drop(columns=['Unnamed: 2', 'ticker', 'CURRENCY:BTCUSD'], inplace=True)   
-
-    joined_df = pd.concat([agg_df, spy_df, btc_df], join = "inner", axis = 1)
+    joined_df = pd.concat([spy_df, agg_df, btc_df], join = "inner", axis = 1)
     main_df = pd.DataFrame()
-    main_df["AGG"] = joined_df.iloc[:, 1]
     main_df["SPY"] = joined_df.iloc[:, 3]
+    main_df["AGG"] = joined_df.iloc[:, 1]
     main_df["BTC"] = joined_df.iloc[:, 5]
     # main_df = pd.DataFrame()
     # main_df["AGG"] = agg_df["Close"]
