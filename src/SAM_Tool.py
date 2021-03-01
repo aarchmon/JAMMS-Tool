@@ -33,8 +33,6 @@ from include.efficient_frontier import determine_optimal_portfolio
 # Tickers.
 timeframe = "1D"
 tickers = ["SPY", "AGG", "BTC"]
-#start_date = "2010-06-01"
-#end_date = "2020-06-01"
 
 # Weights per client risk profile.  
 risk_profile_weights = {"conservative" : [0.1, 0.9, 0.0], "moderately conservative" : [0.25, 0.7, 0.05], 
