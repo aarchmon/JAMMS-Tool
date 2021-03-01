@@ -10,6 +10,23 @@ The tool will create a customized asset allocation for an investor to use a refe
 ## Usage
 This can be a useful tool for first time investors to assess their investments using a benchmark based on client specific situation. 
 
+To use the _SAM Tool_, execute the following steps. 
+
+1. Open a _Unix_-based command line interface (CLI). 
+2. Enter your _Anaconda_ development environment utilizing _Python 3.7 +_.
+```
+conda activate <dev environment name>
+```
+3. Clone repository in a directory of your choosing, the project and all its contents will be named ```SAM-Tool```.
+4. Within ```SAM-Tool```, navigate into the ```src``` directory.
+5. Within the ```src``` directory, execute the folloing commands:
+
+```
+python SAM_Tool.py
+```
+
+You will be prompted with a series of questions relating to your personal financial information. Enter these values in and press ```ENTER``` on your keyboard to proceed with each step. 
+
 ---
 ## Systems Diagram
 ![Systems Diagram](./Systems_Diagrams/Pipelines/main_pipeline.png)
@@ -30,6 +47,16 @@ This can be a useful tool for first time investors to assess their investments u
 * from pathlib import Path
 * %matplotlib inline
 * import hvplot.pandas
+
+__Documentation Module__
+
+For the _SAM Tool_, we will be utilizing an external library named _Sphinx_ to generate documentation. To install _Sphinx_, open up a _Unix_-based CLI, enter your _Anaconda_ development environment, and run the following command:
+
+```
+pip install sphinx
+```
+
+Instructions on how to generate / update documentation, as well as the location of the main document, will be discussed in the __Generating and Viewing Documentation__ section.
 
 ---
 ## User Profile
@@ -114,6 +141,16 @@ When we look at Sharpe Ratio, which is the risk adjusted return, we find that th
 ![Risk_Profile_Sharpe](./Images/risk_profile_return_barchart.png)
 ![Risk_Profile_Sharpe](./Images/risk_profile_vol_barchart.png)
 
+## Viewing Documentation 
+
+The _SAM Tool_ utilizes the _Sphinx_ library to generate _.html_-based documentation of the entire codebase. Below are instructions for navigating to documentation and generating / updating. 
+
+### Documentation Source
+
+1. While in the main ```SAM-Tool``` directory, navigate to ```/SAM-Tool/_build/html```.
+2. Click on ```index.html``` to view all web-based documentation. 
+
+![Documentation](./Images/documentation.png)
 
 ---
 ## Contributors
